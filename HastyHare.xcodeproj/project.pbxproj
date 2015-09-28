@@ -10,6 +10,7 @@
 		5A04A4D41BB94DBD00FB4A58 /* HastyHare.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */; settings = {ASSET_TAGS = (); }; };
 		5A04A4E01BB94DBE00FB4A58 /* HastyHareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */; };
+		5A04A4FA1BB9520D00FB4A58 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4F71BB951FA00FB4A58 /* Nimble.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,6 +21,34 @@
 			remoteGlobalIDString = 5A04A4CF1BB94DBD00FB4A58;
 			remoteInfo = HastyHare;
 		};
+		5A04A4F21BB951FA00FB4A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F1A74291940169200FFFC47;
+			remoteInfo = "Nimble-iOS";
+		};
+		5A04A4F41BB951FA00FB4A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F1A74341940169200FFFC47;
+			remoteInfo = "Nimble-iOSTests";
+		};
+		5A04A4F61BB951FA00FB4A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F925EAD195C0D6300ED456B;
+			remoteInfo = "Nimble-OSX";
+		};
+		5A04A4F81BB951FA00FB4A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F925EB7195C0D6300ED456B;
+			remoteInfo = "Nimble-OSXTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +58,7 @@
 		5A04A4DA1BB94DBD00FB4A58 /* HastyHareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HastyHareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HastyHareTests.swift; sourceTree = "<group>"; };
 		5A04A4E11BB94DBE00FB4A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = External/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A04A4FA1BB9520D00FB4A58 /* Nimble.framework in Frameworks */,
 				5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +87,7 @@
 				5A04A4D21BB94DBD00FB4A58 /* HastyHare */,
 				5A04A4DE1BB94DBE00FB4A58 /* HastyHareTests */,
 				5A04A4D11BB94DBD00FB4A58 /* Products */,
+				5A04A4EA1BB951E800FB4A58 /* External */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +116,25 @@
 				5A04A4E11BB94DBE00FB4A58 /* Info.plist */,
 			);
 			path = HastyHareTests;
+			sourceTree = "<group>";
+		};
+		5A04A4EA1BB951E800FB4A58 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		5A04A4EC1BB951FA00FB4A58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A04A4F31BB951FA00FB4A58 /* Nimble.framework */,
+				5A04A4F51BB951FA00FB4A58 /* NimbleTests.xctest */,
+				5A04A4F71BB951FA00FB4A58 /* Nimble.framework */,
+				5A04A4F91BB951FA00FB4A58 /* NimbleTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +193,7 @@
 		5A04A4C71BB94DBD00FB4A58 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = feinstruktur;
 				TargetAttributes = {
@@ -163,6 +215,12 @@
 			mainGroup = 5A04A4C61BB94DBD00FB4A58;
 			productRefGroup = 5A04A4D11BB94DBD00FB4A58 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5A04A4EC1BB951FA00FB4A58 /* Products */;
+					ProjectRef = 5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5A04A4CF1BB94DBD00FB4A58 /* HastyHare */,
@@ -170,6 +228,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5A04A4F31BB951FA00FB4A58 /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = 5A04A4F21BB951FA00FB4A58 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A04A4F51BB951FA00FB4A58 /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = 5A04A4F41BB951FA00FB4A58 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A04A4F71BB951FA00FB4A58 /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = 5A04A4F61BB951FA00FB4A58 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A04A4F91BB951FA00FB4A58 /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = 5A04A4F81BB951FA00FB4A58 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5A04A4CE1BB94DBD00FB4A58 /* Resources */ = {
@@ -338,17 +427,20 @@
 		5A04A4E81BB94DBE00FB4A58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = HastyHareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.feinstruktur.HastyHareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		5A04A4E91BB94DBE00FB4A58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = HastyHareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -376,6 +468,7 @@
 				5A04A4E61BB94DBE00FB4A58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5A04A4E71BB94DBE00FB4A58 /* Build configuration list for PBXNativeTarget "HastyHareTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +477,7 @@
 				5A04A4E91BB94DBE00FB4A58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
