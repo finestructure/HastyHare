@@ -49,6 +49,12 @@ public class Connection {
     }
 
 
+    deinit {
+        amqp_connection_close(self.connection, AMQP_REPLY_SUCCESS)
+        amqp_destroy_connection(self.connection)
+    }
+
+
     public func login(username: String, password: String, vhost: String = "/") {
         if self.connected {
             let channel_max: Int32 = 0
