@@ -11,15 +11,17 @@
 		5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */; settings = {ASSET_TAGS = (); }; };
 		5A04A4E01BB94DBE00FB4A58 /* HastyHareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */; };
 		5A04A4FA1BB9520D00FB4A58 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4F71BB951FA00FB4A58 /* Nimble.framework */; };
-		5A04A5181BB9548000FB4A58 /* HastyHare-Bridging-Header.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5161BB9548000FB4A58 /* HastyHare-Bridging-Header.c */; settings = {ASSET_TAGS = (); }; };
-		5A04A5191BB9548000FB4A58 /* HastyHare-Bridging-Header.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5161BB9548000FB4A58 /* HastyHare-Bridging-Header.c */; settings = {ASSET_TAGS = (); }; };
-		5A04A51A1BB9548000FB4A58 /* HastyHare-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5171BB9548000FB4A58 /* HastyHare-Bridging-Header.h */; settings = {ASSET_TAGS = (); }; };
-		5A04A52B1BB955D400FB4A58 /* amqp.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5261BB955D400FB4A58 /* amqp.h */; settings = {ASSET_TAGS = (); }; };
-		5A04A52C1BB955D400FB4A58 /* amqp_framing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5271BB955D400FB4A58 /* amqp_framing.h */; settings = {ASSET_TAGS = (); }; };
-		5A04A52D1BB955D400FB4A58 /* amqp_ssl_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5281BB955D400FB4A58 /* amqp_ssl_socket.h */; settings = {ASSET_TAGS = (); }; };
-		5A04A52E1BB955D400FB4A58 /* amqp_tcp_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5291BB955D400FB4A58 /* amqp_tcp_socket.h */; settings = {ASSET_TAGS = (); }; };
+		5A04A5181BB9548000FB4A58 /* amqp-ext.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5161BB9548000FB4A58 /* amqp-ext.c */; settings = {ASSET_TAGS = (); }; };
+		5A04A5191BB9548000FB4A58 /* amqp-ext.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5161BB9548000FB4A58 /* amqp-ext.c */; settings = {ASSET_TAGS = (); }; };
+		5A04A51A1BB9548000FB4A58 /* amqp-ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5171BB9548000FB4A58 /* amqp-ext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A04A52B1BB955D400FB4A58 /* amqp.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5261BB955D400FB4A58 /* amqp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A04A52C1BB955D400FB4A58 /* amqp_framing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5271BB955D400FB4A58 /* amqp_framing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A04A52D1BB955D400FB4A58 /* amqp_ssl_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5281BB955D400FB4A58 /* amqp_ssl_socket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A04A52E1BB955D400FB4A58 /* amqp_tcp_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A5291BB955D400FB4A58 /* amqp_tcp_socket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A04A52F1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A52A1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
 		5A04A5301BB955D400FB4A58 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A52A1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
+		5A04A5321BBAED3700FB4A58 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5311BBAED3700FB4A58 /* Connection.swift */; settings = {ASSET_TAGS = (); }; };
+		5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,13 +70,15 @@
 		5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HastyHareTests.swift; sourceTree = "<group>"; };
 		5A04A4E11BB94DBE00FB4A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = External/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
-		5A04A5161BB9548000FB4A58 /* HastyHare-Bridging-Header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "HastyHare-Bridging-Header.c"; sourceTree = "<group>"; };
-		5A04A5171BB9548000FB4A58 /* HastyHare-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HastyHare-Bridging-Header.h"; sourceTree = "<group>"; };
+		5A04A5161BB9548000FB4A58 /* amqp-ext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "amqp-ext.c"; sourceTree = "<group>"; };
+		5A04A5171BB9548000FB4A58 /* amqp-ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "amqp-ext.h"; sourceTree = "<group>"; };
 		5A04A5261BB955D400FB4A58 /* amqp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amqp.h; sourceTree = "<group>"; };
 		5A04A5271BB955D400FB4A58 /* amqp_framing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amqp_framing.h; sourceTree = "<group>"; };
 		5A04A5281BB955D400FB4A58 /* amqp_ssl_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amqp_ssl_socket.h; sourceTree = "<group>"; };
 		5A04A5291BB955D400FB4A58 /* amqp_tcp_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amqp_tcp_socket.h; sourceTree = "<group>"; };
 		5A04A52A1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = librabbitmq.4.1.1.dylib; sourceTree = "<group>"; };
+		5A04A5311BBAED3700FB4A58 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Connection.swift; path = HastyHare/Connection.swift; sourceTree = "<group>"; };
+		5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +106,6 @@
 		5A04A4C61BB94DBD00FB4A58 = {
 			isa = PBXGroup;
 			children = (
-				5A04A5171BB9548000FB4A58 /* HastyHare-Bridging-Header.h */,
-				5A04A5161BB9548000FB4A58 /* HastyHare-Bridging-Header.c */,
 				5A04A4D21BB94DBD00FB4A58 /* HastyHare */,
 				5A04A4DE1BB94DBE00FB4A58 /* HastyHareTests */,
 				5A04A4D11BB94DBD00FB4A58 /* Products */,
@@ -123,6 +125,7 @@
 		5A04A4D21BB94DBD00FB4A58 /* HastyHare */ = {
 			isa = PBXGroup;
 			children = (
+				5A04A5331BBAF30500FB4A58 /* Source */,
 				5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */,
 				5A04A4D51BB94DBD00FB4A58 /* Info.plist */,
 			);
@@ -132,6 +135,7 @@
 		5A04A4DE1BB94DBE00FB4A58 /* HastyHareTests */ = {
 			isa = PBXGroup;
 			children = (
+				5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */,
 				5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */,
 				5A04A4E11BB94DBE00FB4A58 /* Info.plist */,
 			);
@@ -179,6 +183,17 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		5A04A5331BBAF30500FB4A58 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				5A04A5311BBAED3700FB4A58 /* Connection.swift */,
+				5A04A5171BB9548000FB4A58 /* amqp-ext.h */,
+				5A04A5161BB9548000FB4A58 /* amqp-ext.c */,
+			);
+			name = Source;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -191,7 +206,7 @@
 				5A04A4D41BB94DBD00FB4A58 /* HastyHare.h in Headers */,
 				5A04A52C1BB955D400FB4A58 /* amqp_framing.h in Headers */,
 				5A04A52E1BB955D400FB4A58 /* amqp_tcp_socket.h in Headers */,
-				5A04A51A1BB9548000FB4A58 /* HastyHare-Bridging-Header.h in Headers */,
+				5A04A51A1BB9548000FB4A58 /* amqp-ext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +344,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A04A5181BB9548000FB4A58 /* HastyHare-Bridging-Header.c in Sources */,
+				5A04A5181BB9548000FB4A58 /* amqp-ext.c in Sources */,
+				5A04A5321BBAED3700FB4A58 /* Connection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,8 +353,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A04A5191BB9548000FB4A58 /* HastyHare-Bridging-Header.c in Sources */,
+				5A04A5191BB9548000FB4A58 /* amqp-ext.c in Sources */,
 				5A04A4E01BB94DBE00FB4A58 /* HastyHareTests.swift in Sources */,
+				5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,7 +411,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "HastyHare-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -435,7 +451,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "HastyHare-Bridging-Header.h";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -444,6 +459,7 @@
 		5A04A4E51BB94DBE00FB4A58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -460,12 +476,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.feinstruktur.HastyHare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		5A04A4E61BB94DBE00FB4A58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

@@ -12,14 +12,14 @@ import Nimble
 
 /*
 
-These tests expect a default RabbitMQ instance to be running on the host/port given below, with login credentials 'guest / guest'. The easiest way to get there is to run a docker image as follow:
+These tests expect a default RabbitMQ instance to be running on the host/port given below, with login credentials 'guest / guest'. The easiest way to get there is to run a docker image as follows:
 
 docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 8080:15672 rabbitmq:3-management
 
 */
 
 let hostname = "dockerhost"
-let port: Int32 = 5672
+let port = 5672
 let username = "guest"
 let password = "guest"
 
@@ -33,7 +33,7 @@ class HastyHareTests: XCTestCase {
         do {
             let socket = amqp_tcp_socket_new(conn)
             expect(socket).toNot(beNil())
-            let status = amqp_socket_open(socket, hostname.cStringUsingEncoding(NSUTF8StringEncoding)!, port)
+            let status = amqp_socket_open(socket, hostname.cStringUsingEncoding(NSUTF8StringEncoding)!, Int32(port))
             expect(status) == AMQP_STATUS_OK.rawValue
         }
 
