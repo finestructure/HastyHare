@@ -13,14 +13,16 @@ public class Queue {
 
     internal let connection: amqp_connection_state_t
     internal let channel: amqp_channel_t
+    internal let name: String
     internal var _declared = false
 
 
     init(connection: amqp_connection_state_t, channel: amqp_channel_t, name: String) {
         self.connection = connection
         self.channel = channel
+        self.name = name
 
-        let queue = amqp_cstring_bytes(name.toMQStr()!) // TODO: avoid ! unwrap
+        let queue = name.amqpBytes! // TODO: avoid ! unwrap
         let passive: amqp_boolean_t = 0
         let durable: amqp_boolean_t = 1
         let exclusive: amqp_boolean_t = 0

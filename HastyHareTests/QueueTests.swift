@@ -13,12 +13,4 @@ import Nimble
 
 class QueueTests: XCTestCase {
 
-    func test_declareQueue() {
-        let c = Connection(host: hostname, port: port)
-        c.login(username, password: password)
-        let ch = c.openChannel()
-        let q = ch.declareQueue("queue")
-        expect(q._declared) == true
-    }
-
 }

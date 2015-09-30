@@ -22,4 +22,22 @@ class ChannelTests: XCTestCase {
         expect(ch._open) == true
     }
 
+
+    func test_declareQueue() {
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let q = ch.declareQueue("queue")
+        expect(q._declared) == true
+    }
+
+
+    func test_declareExchange() {
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let ex = ch.declareExchange("foo")
+        expect(ex._declared) == true
+    }
+
 }

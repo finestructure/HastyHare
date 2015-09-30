@@ -22,6 +22,15 @@ extension String {
     }
 
 
+    var amqpBytes: amqp_bytes_t? {
+        if let s = self.toMQStr() {
+            return amqp_cstring_bytes(s)
+        } else {
+            return nil
+        }
+    }
+
+
     init?(MQStr: UnsafePointer<Int8>) {
         self.init(CString: MQStr, encoding: NSUTF8StringEncoding)
     }

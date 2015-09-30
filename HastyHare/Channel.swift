@@ -43,5 +43,10 @@ public class Channel {
         return Queue(connection: self.connection, channel: self.channel, name: name)
     }
 
+
+    public func declareExchange(name: String) -> Exchange {
+        return Exchange(connection: self.connection, channel: self.channel, name: name)
+    }
+
 }
 
