@@ -38,5 +38,10 @@ public class Channel {
         amqp_channel_close(self.connection, self.channel, AMQP_REPLY_SUCCESS)
     }
 
+
+    public func declareQueue(name: String) -> Queue {
+        return Queue(connection: self.connection, channel: self.channel, name: name)
+    }
+
 }
 
