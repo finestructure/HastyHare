@@ -22,7 +22,7 @@ public class Queue {
         self.channel = channel
         self.name = name
 
-        let queue = name.amqpBytes! // TODO: avoid ! unwrap
+        let queue = name.amqpBytes
         let passive: amqp_boolean_t = 0
         let durable: amqp_boolean_t = 1
         let exclusive: amqp_boolean_t = 0
@@ -38,6 +38,24 @@ public class Queue {
             self._declared = true
         } else {
             print(errorDescriptionForReply(reply))
+        }
+    }
+
+
+    public func bindToExchange(exchange: Exchange, bindingKey: String) -> Bool {
+        amqp_queue_bind(
+            self.connection,
+            self.channel,
+            self.name.amqpBytes,
+            exchange.name.amqpBytes,
+            bindingKey.amqpBytes,
+            amqp_empty_table)
+
+        if let error = checkReply(self.connection) {
+            print(error)
+            return false
+        } else {
+            return true
         }
     }
 

@@ -40,4 +40,13 @@ class ChannelTests: XCTestCase {
         expect(ex._declared) == true
     }
 
+
+    func test_publish() {
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let res = ch.publish("a message", exchange: "", routingKey: "mytest")
+        expect(res) == true
+    }
+
 }

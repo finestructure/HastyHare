@@ -21,10 +21,8 @@
 		5A04A52F1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A52A1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
 		5A04A5301BB955D400FB4A58 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A52A1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
 		5A04A5321BBAED3700FB4A58 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5311BBAED3700FB4A58 /* Connection.swift */; settings = {ASSET_TAGS = (); }; };
-		5A7042241BBC123100A97787 /* QueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7042231BBC123100A97787 /* QueueTests.swift */; settings = {ASSET_TAGS = (); }; };
 		5A7042261BBC129F00A97787 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7042251BBC129F00A97787 /* Queue.swift */; settings = {ASSET_TAGS = (); }; };
 		5A7042281BBC195D00A97787 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7042271BBC195D00A97787 /* Exchange.swift */; settings = {ASSET_TAGS = (); }; };
-		5A70422A1BBC1ACD00A97787 /* ExchangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7042291BBC1ACD00A97787 /* ExchangeTests.swift */; settings = {ASSET_TAGS = (); }; };
 		5A738F331BBBBFDA00C99F3E /* ChannelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */; settings = {ASSET_TAGS = (); }; };
 		5A738F391BBBC0EE00C99F3E /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A738F381BBBC0EE00C99F3E /* Channel.swift */; settings = {ASSET_TAGS = (); }; };
 		5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */; settings = {ASSET_TAGS = (); }; };
@@ -84,10 +82,8 @@
 		5A04A5291BB955D400FB4A58 /* amqp_tcp_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amqp_tcp_socket.h; sourceTree = "<group>"; };
 		5A04A52A1BB955D400FB4A58 /* librabbitmq.4.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = librabbitmq.4.1.1.dylib; sourceTree = "<group>"; };
 		5A04A5311BBAED3700FB4A58 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Connection.swift; path = HastyHare/Connection.swift; sourceTree = "<group>"; };
-		5A7042231BBC123100A97787 /* QueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTests.swift; sourceTree = "<group>"; };
 		5A7042251BBC129F00A97787 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		5A7042271BBC195D00A97787 /* Exchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
-		5A7042291BBC1ACD00A97787 /* ExchangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExchangeTests.swift; sourceTree = "<group>"; };
 		5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTests.swift; sourceTree = "<group>"; };
 		5A738F381BBBC0EE00C99F3E /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Channel.swift; path = HastyHare/Channel.swift; sourceTree = "<group>"; };
 		5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionTests.swift; sourceTree = "<group>"; };
@@ -149,9 +145,7 @@
 			children = (
 				5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */,
 				5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */,
-				5A7042291BBC1ACD00A97787 /* ExchangeTests.swift */,
 				5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */,
-				5A7042231BBC123100A97787 /* QueueTests.swift */,
 				5A04A4E11BB94DBE00FB4A58 /* Info.plist */,
 			);
 			path = HastyHareTests;
@@ -374,10 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A70422A1BBC1ACD00A97787 /* ExchangeTests.swift in Sources */,
 				5A04A5191BB9548000FB4A58 /* amqp-ext.c in Sources */,
 				5A738F331BBBBFDA00C99F3E /* ChannelTests.swift in Sources */,
-				5A7042241BBC123100A97787 /* QueueTests.swift in Sources */,
 				5A04A4E01BB94DBE00FB4A58 /* HastyHareTests.swift in Sources */,
 				5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */,
 			);

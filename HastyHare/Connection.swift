@@ -17,17 +17,13 @@ enum MethodId: amqp_method_number_t {
 
 extension String {
 
-    func toMQStr() -> [CChar]? {
-        return self.cStringUsingEncoding(NSUTF8StringEncoding)
+    func toMQStr() -> UnsafePointer<Int8> {
+        return (self as NSString).cStringUsingEncoding(NSUTF8StringEncoding)
     }
 
 
-    var amqpBytes: amqp_bytes_t? {
-        if let s = self.toMQStr() {
-            return amqp_cstring_bytes(s)
-        } else {
-            return nil
-        }
+    var amqpBytes: amqp_bytes_t {
+        return amqp_cstring_bytes(self.toMQStr())
     }
 
 
@@ -60,6 +56,19 @@ func errorDescriptionForReply(reply: amqp_rpc_reply_t) -> String {
 }
 
 
+typealias Error = String
+
+
+func checkReply(connection: amqp_connection_state_t) -> Error? {
+    let reply = amqp_get_rpc_reply(connection)
+    if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
+        return nil
+    } else {
+        return errorDescriptionForReply(reply)
+    }
+}
+
+
 public class Connection {
 
     private let connection: amqp_connection_state_t
@@ -82,7 +91,7 @@ public class Connection {
     public init(host: String, port: Int) {
         self.connection = amqp_new_connection()
         self.socket = amqp_tcp_socket_new(self.connection)
-        let status = amqp_socket_open(self.socket, host.toMQStr()!, Int32(port))
+        let status = amqp_socket_open(self.socket, host.toMQStr(), Int32(port))
         self._connected = (status == AMQP_STATUS_OK.rawValue)
     }
 
@@ -101,13 +110,13 @@ public class Connection {
             let sasl_method = AMQP_SASL_METHOD_PLAIN
             let reply = amqp_login_with_credentials(
                 self.connection,
-                vhost.toMQStr()!,
+                vhost.toMQStr(),
                 channel_max,
                 frame_max,
                 heartbeat,
                 sasl_method,
-                username.toMQStr()!,
-                password.toMQStr()!
+                username.toMQStr(),
+                password.toMQStr()
             )
             if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
                 self._loggedIn = true

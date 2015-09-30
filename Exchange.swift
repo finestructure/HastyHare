@@ -31,8 +31,8 @@ public class Exchange {
         amqp_exchange_declare(
             connection,
             channel,
-            name.amqpBytes!, // TODO: avoid ! unwrap
-            type.amqpBytes!, // TODO: avoid ! unwrap
+            name.amqpBytes,
+            type.amqpBytes,
             passive,
             durable,
             auto_delete,
@@ -44,23 +44,6 @@ public class Exchange {
             self._declared = true
         } else {
             print(errorDescriptionForReply(reply))
-        }
-    }
-
-
-    public func send(message: String, exchange: String = "") -> Bool {
-        let ex = exchange.amqpBytes!
-        let routing = self.name.amqpBytes!
-        let mandatory: amqp_boolean_t = 0
-        let immediate: amqp_boolean_t = 0
-        let body = message.amqpBytes!
-        amqp_basic_publish(self.connection, self.channel, ex, routing, mandatory, immediate, nil, body)
-        let reply = amqp_get_rpc_reply(self.connection)
-        if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
-            return true
-        } else {
-            print(errorDescriptionForReply(reply))
-            return false
         }
     }
 
