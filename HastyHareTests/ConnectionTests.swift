@@ -11,7 +11,6 @@ import Nimble
 @testable import HastyHare
 
 
-
 class ConnectionTests: XCTestCase {
 
     func test_init() {
