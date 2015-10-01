@@ -42,12 +42,12 @@ public class Queue {
     }
 
 
-    public func bindToExchange(exchange: Exchange, bindingKey: String) -> Bool {
+    public func bindToExchange(exchange: String, bindingKey: String) -> Bool {
         amqp_queue_bind(
             self.connection,
             self.channel,
             self.name.amqpBytes,
-            exchange.name.amqpBytes,
+            exchange.amqpBytes,
             bindingKey.amqpBytes,
             amqp_empty_table)
 

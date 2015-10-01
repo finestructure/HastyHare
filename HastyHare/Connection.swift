@@ -69,6 +69,18 @@ func checkReply(connection: amqp_connection_state_t) -> Error? {
 }
 
 
+func successState(connection: amqp_connection_state_t, printError: Bool = false) -> Bool {
+    if let error = checkReply(connection) {
+        if printError {
+            print(error)
+        }
+        return false
+    } else {
+        return true
+    }
+}
+
+
 public class Connection {
 
     private let connection: amqp_connection_state_t

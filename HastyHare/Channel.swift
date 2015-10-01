@@ -9,6 +9,9 @@
 import Foundation
 
 
+public typealias Exchange = String
+
+
 public class Channel {
 
     internal let connection: amqp_connection_state_t
@@ -44,12 +47,29 @@ public class Channel {
     }
 
 
-    public func declareExchange(name: String) -> Exchange {
-        return Exchange(connection: self.connection, channel: self.channel, name: name)
+    public func declareExchange(name: Exchange) -> Bool {
+        let type = "direct"
+        let passive: amqp_boolean_t = 0
+        let durable: amqp_boolean_t = 0
+        let auto_delete: amqp_boolean_t = 0
+        let internl: amqp_boolean_t = 0
+        let args = amqp_empty_table
+        amqp_exchange_declare(
+            connection,
+            channel,
+            name.amqpBytes,
+            type.amqpBytes,
+            passive,
+            durable,
+            auto_delete,
+            internl,
+            args
+        )
+        return successState(self.connection, printError: true)
     }
 
 
-    public func publish(message: String, exchange: String, routingKey: String) -> Bool {
+    public func publish(message: String, exchange: Exchange, routingKey: String) -> Bool {
         let mandatory: amqp_boolean_t = 0
         let immediate: amqp_boolean_t = 0
         let body = message.amqpBytes
@@ -63,13 +83,7 @@ public class Channel {
             nil,
             body
         )
-        let reply = amqp_get_rpc_reply(self.connection)
-        if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
-            return true
-        } else {
-            print(errorDescriptionForReply(reply))
-            return false
-        }
+        return successState(self.connection, printError: true)
     }
 
 }
