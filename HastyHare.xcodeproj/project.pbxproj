@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A04A4D41BB94DBD00FB4A58 /* HastyHare.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */; settings = {ASSET_TAGS = (); }; };
-		5A04A4E01BB94DBE00FB4A58 /* HastyHareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */; };
+		5A04A4E01BB94DBE00FB4A58 /* LowLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A4DF1BB94DBE00FB4A58 /* LowLevelTests.swift */; };
 		5A04A4FA1BB9520D00FB4A58 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4F71BB951FA00FB4A58 /* Nimble.framework */; };
 		5A04A5181BB9548000FB4A58 /* amqp-ext.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5161BB9548000FB4A58 /* amqp-ext.c */; settings = {ASSET_TAGS = (); }; };
 		5A04A5191BB9548000FB4A58 /* amqp-ext.c in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5161BB9548000FB4A58 /* amqp-ext.c */; settings = {ASSET_TAGS = (); }; };
@@ -71,7 +71,7 @@
 		5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HastyHare.h; sourceTree = "<group>"; };
 		5A04A4D51BB94DBD00FB4A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A04A4DA1BB94DBD00FB4A58 /* HastyHareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HastyHareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HastyHareTests.swift; sourceTree = "<group>"; };
+		5A04A4DF1BB94DBE00FB4A58 /* LowLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowLevelTests.swift; sourceTree = "<group>"; };
 		5A04A4E11BB94DBE00FB4A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = External/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		5A04A5161BB9548000FB4A58 /* amqp-ext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "amqp-ext.c"; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 			children = (
 				5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */,
 				5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */,
-				5A04A4DF1BB94DBE00FB4A58 /* HastyHareTests.swift */,
+				5A04A4DF1BB94DBE00FB4A58 /* LowLevelTests.swift */,
 				5A04A4E11BB94DBE00FB4A58 /* Info.plist */,
 			);
 			path = HastyHareTests;
@@ -370,7 +370,7 @@
 			files = (
 				5A04A5191BB9548000FB4A58 /* amqp-ext.c in Sources */,
 				5A738F331BBBBFDA00C99F3E /* ChannelTests.swift in Sources */,
-				5A04A4E01BB94DBE00FB4A58 /* HastyHareTests.swift in Sources */,
+				5A04A4E01BB94DBE00FB4A58 /* LowLevelTests.swift in Sources */,
 				5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,7 +24,7 @@ let username = "guest"
 let password = "guest"
 
 
-class HastyHareTests: XCTestCase {
+class LowLevelTests: XCTestCase {
 
     func test_lowlevel() {
         let conn = amqp_new_connection()
