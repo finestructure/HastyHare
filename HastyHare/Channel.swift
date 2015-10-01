@@ -28,12 +28,7 @@ public class Channel {
         self.connection = connection
         self.channel = channel
         amqp_channel_open(connection, channel)
-        let reply = amqp_get_rpc_reply(connection)
-        if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
-            self._open = true
-        } else {
-            print(errorDescriptionForReply(reply))
-        }
+        self._open = success(connection, printError: true)
     }
 
 
@@ -65,7 +60,7 @@ public class Channel {
             internl,
             args
         )
-        return successState(self.connection, printError: true)
+        return success(self.connection, printError: true)
     }
 
 
@@ -83,7 +78,7 @@ public class Channel {
             nil,
             body
         )
-        return successState(self.connection, printError: true)
+        return success(self.connection, printError: true)
     }
 
 }

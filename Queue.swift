@@ -29,16 +29,12 @@ public class Queue {
         let auto_delete: amqp_boolean_t = 0
         let args = amqp_empty_table
         let res = amqp_queue_declare(connection, channel, queue, passive, durable, exclusive, auto_delete, args)
+
         let mem = res.memory.queue.bytes
         let sname = String.fromCString(UnsafePointer<CChar>(mem))
         assert(sname != nil && (sname! == name))
 
-        let reply = amqp_get_rpc_reply(connection)
-        if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
-            self._declared = true
-        } else {
-            print(errorDescriptionForReply(reply))
-        }
+        self._declared = success(connection, printError: true)
     }
 
 
@@ -50,13 +46,7 @@ public class Queue {
             exchange.amqpBytes,
             bindingKey.amqpBytes,
             amqp_empty_table)
-
-        if let error = checkReply(self.connection) {
-            print(error)
-            return false
-        } else {
-            return true
-        }
+        return success(self.connection, printError: true)
     }
 
 }
