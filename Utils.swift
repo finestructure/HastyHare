@@ -31,6 +31,15 @@ extension String {
         self.init(CString: MQStr, encoding: NSUTF8StringEncoding)
     }
 
+    init?(data: amqp_bytes_t) {
+        // need to go via NSString here, the same initialiser for String does not work correctly
+        if let s = NSString(bytes: data.bytes, length: data.len, encoding: NSUTF8StringEncoding) {
+            self.init(s)
+        } else {
+            return nil
+        }
+    }
+
 }
 
 

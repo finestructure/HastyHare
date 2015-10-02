@@ -59,5 +59,16 @@ class ChannelTests: XCTestCase {
         let res = ch.publish("doc message", exchange: "foo", routingKey: "key1")
         expect(res) == true
     }
-    
+
+
+    func test_consume() {
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let q = ch.declareQueue("queue1")
+        let consumer = ch.consumer(q)
+        expect(consumer.started) == true
+        expect(consumer.tag).toNot(beNil())
+    }
+
 }

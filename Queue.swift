@@ -28,12 +28,12 @@ public class Queue {
         let exclusive: amqp_boolean_t = 0
         let auto_delete: amqp_boolean_t = 0
         let args = amqp_empty_table
-        let res = amqp_queue_declare(connection, channel, queue, passive, durable, exclusive, auto_delete, args)
+        let res = amqp_queue_declare(
+            connection, channel, queue, passive, durable, exclusive, auto_delete, args
+        )
 
-        let mem = res.memory.queue.bytes
-        let sname = String.fromCString(UnsafePointer<CChar>(mem))
+        let sname = String(data: res.memory.queue)
         assert(sname != nil && (sname! == name))
-
         self._declared = success(connection, printError: true)
     }
 
