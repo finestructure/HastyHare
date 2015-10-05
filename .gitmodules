@@ -4,3 +4,6 @@
 [submodule "External/RabbitMQ"]
 	path = External/RabbitMQ
 	url = git@github.com:feinstruktur/RabbitMQ.git
+[submodule "External/Async"]
+	path = External/Async
+	url = git@github.com:duemunk/Async.git

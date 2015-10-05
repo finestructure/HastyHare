@@ -10,6 +10,7 @@
 		5A01D4651BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
 		5A01D4661BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
 		5A01D4671BC2C432002DD482 /* RabbitMQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D45E1BC2C3C1002DD482 /* RabbitMQ.framework */; };
+		5A01D47D1BC2CA8B002DD482 /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4771BC2C9F4002DD482 /* Async.framework */; };
 		5A04A4D41BB94DBD00FB4A58 /* HastyHare.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */; settings = {ASSET_TAGS = (); }; };
 		5A04A4E01BB94DBE00FB4A58 /* LowLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A4DF1BB94DBE00FB4A58 /* LowLevelTests.swift */; };
@@ -44,6 +45,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5A0246151BC273F800E07172;
 			remoteInfo = RabbitMQ;
+		};
+		5A01D4741BC2C9F4002DD482 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF70E4E91ABF124A00B4FDD4;
+			remoteInfo = "Async iOS";
+		};
+		5A01D4761BC2C9F4002DD482 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF41E41E1AC5FB2400A1DDB2;
+			remoteInfo = "Async OSX";
+		};
+		5A01D47E1BC2CAD7002DD482 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BF41E4141AC5FB2400A1DDB2;
+			remoteInfo = "Async OSX";
 		};
 		5A04A4DC1BB94DBE00FB4A58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -85,6 +107,7 @@
 /* Begin PBXFileReference section */
 		5A01D4581BC2C3C1002DD482 /* RabbitMQ.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RabbitMQ.xcodeproj; path = External/RabbitMQ/RabbitMQ.xcodeproj; sourceTree = "<group>"; };
 		5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librabbitmq.4.1.1.dylib; path = External/librabbitmq.4.1.1.dylib; sourceTree = "<group>"; };
+		5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Async.xcodeproj; path = External/Async/Async.xcodeproj; sourceTree = "<group>"; };
 		5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HastyHare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HastyHare.h; sourceTree = "<group>"; };
 		5A04A4D51BB94DBD00FB4A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A01D47D1BC2CA8B002DD482 /* Async.framework in Frameworks */,
 				5A04A4FA1BB9520D00FB4A58 /* Nimble.framework in Frameworks */,
 				5A01D4661BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */,
 				5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */,
@@ -129,6 +153,15 @@
 			children = (
 				5A01D45E1BC2C3C1002DD482 /* RabbitMQ.framework */,
 				5A01D4601BC2C3C1002DD482 /* RabbitMQTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A01D4701BC2C9F4002DD482 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A01D4751BC2C9F4002DD482 /* Async.framework */,
+				5A01D4771BC2C9F4002DD482 /* Async.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,6 +212,7 @@
 				5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */,
 				5A01D4581BC2C3C1002DD482 /* RabbitMQ.xcodeproj */,
 				5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */,
+				5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */,
 			);
 			name = External;
 			sourceTree = "<group>";
@@ -251,6 +285,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5A01D47F1BC2CAD7002DD482 /* PBXTargetDependency */,
 				5A04A4DD1BB94DBE00FB4A58 /* PBXTargetDependency */,
 			);
 			name = HastyHareTests;
@@ -288,6 +323,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 5A01D4701BC2C9F4002DD482 /* Products */;
+					ProjectRef = 5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */;
+				},
+				{
 					ProductGroup = 5A04A4EC1BB951FA00FB4A58 /* Products */;
 					ProjectRef = 5A04A4EB1BB951FA00FB4A58 /* Nimble.xcodeproj */;
 				},
@@ -317,6 +356,20 @@
 			fileType = wrapper.cfbundle;
 			path = RabbitMQTests.xctest;
 			remoteRef = 5A01D45F1BC2C3C1002DD482 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A01D4751BC2C9F4002DD482 /* Async.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Async.framework;
+			remoteRef = 5A01D4741BC2C9F4002DD482 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A01D4771BC2C9F4002DD482 /* Async.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Async.framework;
+			remoteRef = 5A01D4761BC2C9F4002DD482 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5A04A4F31BB951FA00FB4A58 /* Nimble.framework */ = {
@@ -396,6 +449,11 @@
 			isa = PBXTargetDependency;
 			name = RabbitMQ;
 			targetProxy = 5A01D4681BC2C43A002DD482 /* PBXContainerItemProxy */;
+		};
+		5A01D47F1BC2CAD7002DD482 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Async OSX";
+			targetProxy = 5A01D47E1BC2CAD7002DD482 /* PBXContainerItemProxy */;
 		};
 		5A04A4DD1BB94DBE00FB4A58 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
