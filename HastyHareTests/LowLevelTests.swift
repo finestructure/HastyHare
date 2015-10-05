@@ -8,6 +8,7 @@
 
 import XCTest
 import Nimble
+import RabbitMQ
 @testable import HastyHare
 
 /*
