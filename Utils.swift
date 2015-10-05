@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RabbitMQ
 
 
 enum MethodId: amqp_method_number_t {

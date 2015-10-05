@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RabbitMQ
 
 
 public typealias Exchange = String

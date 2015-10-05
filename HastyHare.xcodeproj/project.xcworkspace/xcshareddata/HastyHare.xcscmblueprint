@@ -5,11 +5,13 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : 0,
+    "3E59932877E44843692FD50D09E50B8B8E2FFB99" : 0,
     "18EE9E85FF26F128ACA40A2F4C30202E24ACC668" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E6F8862D-58B7-4A75-80C4-1938DF67E263",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : "HastyHare\/External\/Nimble\/",
+    "3E59932877E44843692FD50D09E50B8B8E2FFB99" : "HastyHare\/External\/RabbitMQ\/",
     "18EE9E85FF26F128ACA40A2F4C30202E24ACC668" : "HastyHare\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "HastyHare",
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:feinstruktur\/HastyHare.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "18EE9E85FF26F128ACA40A2F4C30202E24ACC668"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:feinstruktur\/RabbitMQ.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3E59932877E44843692FD50D09E50B8B8E2FFB99"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Quick\/Nimble.git",
