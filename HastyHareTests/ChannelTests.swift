@@ -8,6 +8,7 @@
 
 import XCTest
 import Nimble
+import Async
 @testable import HastyHare
 
 
@@ -61,7 +62,7 @@ class ChannelTests: XCTestCase {
     }
 
 
-    func test_consume() {
+    func test_consumer() {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
@@ -69,6 +70,25 @@ class ChannelTests: XCTestCase {
         let consumer = ch.consumer(q)
         expect(consumer.started) == true
         expect(consumer.tag).toNot(beNil())
+    }
+
+
+    func test_consumer_pop() {
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let q = ch.declareQueue("queue2")
+        ch.declareExchange("pop")
+        q.bindToExchange("pop", bindingKey: "bkey")
+        expect(ch.publish("ping", exchange: "pop", routingKey: "bkey")) == true
+
+        let consumer = ch.consumer(q)
+        var msg: Message? = nil
+        Async.background {
+            msg = consumer.pop()
+        }
+        expect(msg).toEventuallyNot(beNil(), timeout: 2)
+        expect(msg) == Optional("ping")
     }
 
 }
