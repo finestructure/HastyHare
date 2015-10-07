@@ -93,7 +93,6 @@ public class Consumer {
 
             } else {
                 let msg = Message(data: envelope.message.body)
-                print("message: \(msg)")
                 amqp_destroy_envelope(&envelope)
                 return msg
             }
