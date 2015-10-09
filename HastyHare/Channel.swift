@@ -84,6 +84,12 @@ public class Channel {
     }
 
 
+
+    public func consumer(queueName: String) -> Consumer {
+        return Consumer(connection: self.connection, channel: self.channel, queueName: queueName)
+    }
+
+
     public func consumer(queue: Queue) -> Consumer {
         return Consumer(connection: self.connection, channel: self.channel, queueName: queue.name)
     }
