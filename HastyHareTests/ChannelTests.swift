@@ -29,7 +29,7 @@ class ChannelTests: XCTestCase {
         c.login(username, password: password)
         let ch = c.openChannel()
         let q = ch.declareQueue("queue")
-        expect(q._declared) == true
+        expect(q.declared) == true
     }
 
 

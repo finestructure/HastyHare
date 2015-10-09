@@ -12,10 +12,15 @@ import RabbitMQ
 
 public class Queue {
 
-    internal let connection: amqp_connection_state_t
-    internal let channel: amqp_channel_t
+    private let connection: amqp_connection_state_t
+    private let channel: amqp_channel_t
     internal let name: String
-    internal var _declared = false
+    private var _declared = false
+
+
+    public var declared: Bool {
+        return _declared
+    }
 
 
     init(connection: amqp_connection_state_t, channel: amqp_channel_t, name: String) {
