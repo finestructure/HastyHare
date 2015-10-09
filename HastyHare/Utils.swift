@@ -11,11 +11,12 @@ import RabbitMQ
 
 
 enum MethodId: amqp_method_number_t {
-    case ConnectionClose = 655410
-    case ChannelClose = 1310760
-    case BasicDeliver = 3932220
-    case BasicAck = 3932240
-    case BasicReturn = 3932210
+    case ConnectionClose   =  655410
+    case ConnectionCloseOk =  655411
+    case ChannelClose      = 1310760
+    case BasicReturn       = 3932210
+    case BasicDeliver      = 3932220
+    case BasicAck          = 3932240
 }
 
 

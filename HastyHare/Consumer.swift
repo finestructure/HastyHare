@@ -80,6 +80,8 @@ public class Consumer {
                                     break
                                 case .ConnectionClose:
                                     break
+                                case .ConnectionCloseOk:
+                                    break
                                 default:
                                     print("unexpected method: \(payloadMethod.id)")
                                     return nil
