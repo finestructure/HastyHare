@@ -34,7 +34,8 @@ public class Channel {
 
 
     deinit {
-        amqp_channel_close(self.connection, self.channel, AMQP_REPLY_SUCCESS)
+        // FIXME: this triggers an EXC_BAD_ACCESS on deinit
+        //        amqp_channel_close(self.connection, self.channel, AMQP_REPLY_SUCCESS)
     }
 
 
