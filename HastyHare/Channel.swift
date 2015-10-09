@@ -66,10 +66,9 @@ public class Channel {
     }
 
 
-    public func publish(message: String, exchange: Exchange, routingKey: String) -> Bool {
+    public func publish(bytes: amqp_bytes_t, exchange: Exchange, routingKey: String) -> Bool {
         let mandatory: amqp_boolean_t = 0
         let immediate: amqp_boolean_t = 0
-        let body = message.amqpBytes
         amqp_basic_publish(
             self.connection,
             self.channel,
@@ -78,11 +77,20 @@ public class Channel {
             mandatory,
             immediate,
             nil,
-            body
+            bytes
         )
         return success(self.connection, printError: true)
     }
 
+    
+    public func publish(message: String, exchange: Exchange, routingKey: String) -> Bool {
+        return publish(message.amqpBytes, exchange: exchange, routingKey: routingKey)
+    }
+
+
+    public func publish(data: NSData, exchange: Exchange, routingKey: String) -> Bool {
+        return publish(data.amqpBytes, exchange: exchange, routingKey: routingKey)
+    }
 
 
     public func consumer(queueName: String) -> Consumer {

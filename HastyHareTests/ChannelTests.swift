@@ -91,4 +91,28 @@ class ChannelTests: XCTestCase {
         expect(msg) == Optional("ping")
     }
 
+
+    func test_publish_data() {
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        ch.declareExchange("nsdata")
+
+        // send data
+        let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
+        let res = ch.publish(data, exchange: "", routingKey: "mytest")
+        expect(res) == true
+
+        // check result
+        let q = ch.declareQueue("mytest")
+        q.bindToExchange("nsdata", bindingKey: "mytest")
+        let consumer = ch.consumer("mytest")
+        var msg: Message? = nil
+        Async.background {
+            msg = consumer.pop()
+        }
+        expect(msg).toEventuallyNot(beNil(), timeout: 2)
+        expect(msg) == Optional("data")
+    }
+
 }

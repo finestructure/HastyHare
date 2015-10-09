@@ -48,6 +48,16 @@ extension String {
 }
 
 
+extension NSData {
+
+    var amqpBytes: amqp_bytes_t {
+        let p = UnsafePointer<Int8>(self.bytes)
+        return amqp_cstring_bytes(p)
+    }
+
+}
+
+
 func errorDescriptionForReply(reply: amqp_rpc_reply_t) -> String {
     switch reply.reply_type.rawValue {
     case AMQP_RESPONSE_NONE.rawValue:
