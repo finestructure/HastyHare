@@ -18,10 +18,9 @@ public enum ExchangeType: String {
 }
 
 
+public class Exchange {
 
-
-public class Exchange: AMQPObject {
-
+    private let channel: Channel
     internal let name: String
     private var _declared = false
 
@@ -31,18 +30,18 @@ public class Exchange: AMQPObject {
     }
 
 
-    init(connection: amqp_connection_state_t, channel: amqp_channel_t, name: String, type: ExchangeType = .Direct) {
+    init(channel: Channel, name: String, type: ExchangeType = .Direct) {
+        self.channel = channel
         self.name = name
-        super.init(connection: connection, channel: channel)
-        
+
         let passive: amqp_boolean_t = 0
         let durable: amqp_boolean_t = 0
         let auto_delete: amqp_boolean_t = 0
         let internl: amqp_boolean_t = 0
         let args = amqp_empty_table
         amqp_exchange_declare(
-            connection,
-            channel,
+            self.channel.connection,
+            self.channel.channel,
             name.amqpBytes,
             type.rawValue.amqpBytes,
             passive,
@@ -51,7 +50,7 @@ public class Exchange: AMQPObject {
             internl,
             args
         )
-        self._declared = success(self.connection, printError: true)
+        self._declared = success(self.channel.connection, printError: true)
     }
 
 }

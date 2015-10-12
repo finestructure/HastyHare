@@ -12,19 +12,14 @@ import RabbitMQ
 
 public class Channel {
 
-    internal let connection: amqp_connection_state_t
-    internal let channel: amqp_channel_t
+    private let _connection: amqp_connection_state_t
+    private let _channel: amqp_channel_t
     internal var _open = false
 
 
-    public var open: Bool {
-        return _open
-    }
-
-
     init(connection: amqp_connection_state_t, channel: amqp_channel_t) {
-        self.connection = connection
-        self.channel = channel
+        self._connection = connection
+        self._channel = channel
         amqp_channel_open(connection, channel)
         self._open = success(connection, printError: true)
     }
@@ -36,13 +31,26 @@ public class Channel {
     }
 
 
+    public var open: Bool {
+        return _open
+    }
+
+    public var connection: amqp_connection_state_t {
+        return self._connection
+    }
+
+    public var channel: amqp_channel_t {
+        return self._channel
+    }
+
+
     public func declareQueue(name: String) -> Queue {
         return Queue(connection: self.connection, channel: self.channel, name: name)
     }
 
 
     public func declareExchange(name: String, type: ExchangeType = .Direct) -> Exchange {
-        return Exchange(connection: self.connection, channel: self.channel, name: name, type: type)
+        return Exchange(channel: self, name: name, type: type)
     }
 
 
