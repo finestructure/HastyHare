@@ -45,7 +45,7 @@ public class Channel {
 
 
     public func declareQueue(name: String) -> Queue {
-        return Queue(connection: self.connection, channel: self.channel, name: name)
+        return Queue(channel: self, name: name)
     }
 
 
@@ -82,12 +82,12 @@ public class Channel {
 
 
     public func consumer(queueName: String) -> Consumer {
-        return Consumer(connection: self.connection, channel: self.channel, queueName: queueName)
+        return Consumer(channel: self, queueName: queueName)
     }
 
 
     public func consumer(queue: Queue) -> Consumer {
-        return Consumer(connection: self.connection, channel: self.channel, queueName: queue.name)
+        return Consumer(channel: self, queueName: queue.name)
     }
 
 }

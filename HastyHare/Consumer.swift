@@ -16,15 +16,13 @@ public typealias Message = String
 
 public class Consumer {
 
-    private let connection: amqp_connection_state_t
-    private let channel: amqp_channel_t
+    private let channel: Channel
     internal let tag: String?
 
     public let started: Bool
 
 
-    init(connection: amqp_connection_state_t, channel: amqp_channel_t, queueName: String) {
-        self.connection = connection
+    init(channel: Channel, queueName: String) {
         self.channel = channel
 
         let queue = queueName.amqpBytes
@@ -33,11 +31,11 @@ public class Consumer {
         let isExclusive: amqp_boolean_t = 0
         let args = amqp_empty_table
         let res = amqp_basic_consume(
-            connection, channel, queue, amqp_empty_bytes, noLocal, noAck, isExclusive, args
+            self.channel.connection, self.channel.channel, queue, amqp_empty_bytes, noLocal, noAck, isExclusive, args
         )
 
         self.tag = String(data: res.memory.consumer_tag)
-        self.started = success(connection, printError: true)
+        self.started = success(self.channel.connection, printError: true)
     }
 
     
@@ -48,15 +46,15 @@ public class Consumer {
         while true {
             var envelope = amqp_envelope_t()
 
-            amqp_maybe_release_buffers(self.connection)
-            let res = amqp_consume_message(self.connection, &envelope, nil, 0)
+            amqp_maybe_release_buffers(self.channel.connection)
+            let res = amqp_consume_message(self.channel.connection, &envelope, nil, 0)
 
             if res.reply_type != AMQP_RESPONSE_NORMAL {
 
                 if (res.reply_type == AMQP_RESPONSE_LIBRARY_EXCEPTION
                     && res.library_error == AMQP_STATUS_UNEXPECTED_STATE.rawValue) {
 
-                        let res = amqp_simple_wait_frame(self.connection, &frame)
+                        let res = amqp_simple_wait_frame(self.channel.connection, &frame)
                         if res != AMQP_STATUS_OK.rawValue {
                             return nil
                         }
@@ -71,7 +69,7 @@ public class Consumer {
                                 case .BasicReturn:
                                     // if a published message couldn't be routed and the mandatory flag was set this is what would be returned. The message then needs to be read.
                                     var msg = amqp_message_t()
-                                    let res = amqp_read_message(self.connection, self.channel, &msg, 0)
+                                    let res = amqp_read_message(self.channel.connection, self.channel.channel, &msg, 0)
                                     if res.reply_type != AMQP_RESPONSE_NORMAL {
                                         return nil
                                     }

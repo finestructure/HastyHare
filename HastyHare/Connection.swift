@@ -14,9 +14,9 @@ public class Connection {
 
     private let connection: amqp_connection_state_t
     private let socket: COpaquePointer
+    private var channelId: amqp_channel_t = 0
     private var _connected = false
     private var _loggedIn = false
-    private var channel: amqp_channel_t = 0
 
 
     public var connected: Bool {
@@ -67,7 +67,7 @@ public class Connection {
 
 
     public func openChannel() -> Channel {
-        return Channel(connection: self.connection, channel: ++self.channel)
+        return Channel(connection: self.connection, channel: ++self.channelId)
     }
 
 }

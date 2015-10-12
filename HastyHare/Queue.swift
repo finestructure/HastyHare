@@ -12,8 +12,7 @@ import RabbitMQ
 
 public class Queue {
 
-    private let connection: amqp_connection_state_t
-    private let channel: amqp_channel_t
+    private let channel: Channel
     internal let name: String
     private var _declared = false
 
@@ -23,8 +22,7 @@ public class Queue {
     }
 
 
-    init(connection: amqp_connection_state_t, channel: amqp_channel_t, name: String) {
-        self.connection = connection
+    init(channel: Channel, name: String) {
         self.channel = channel
         self.name = name
 
@@ -35,24 +33,24 @@ public class Queue {
         let auto_delete: amqp_boolean_t = 0
         let args = amqp_empty_table
         let res = amqp_queue_declare(
-            connection, channel, queue, passive, durable, exclusive, auto_delete, args
+            self.channel.connection, self.channel.channel, queue, passive, durable, exclusive, auto_delete, args
         )
 
         let sname = String(data: res.memory.queue)
         assert(sname != nil && (sname! == name))
-        self._declared = success(connection, printError: true)
+        self._declared = success(self.channel.connection, printError: true)
     }
 
 
     public func bindToExchange(exchangeName: String, bindingKey: String) -> Bool {
         amqp_queue_bind(
-            self.connection,
-            self.channel,
+            self.channel.connection,
+            self.channel.channel,
             self.name.amqpBytes,
             exchangeName.amqpBytes,
             bindingKey.amqpBytes,
             amqp_empty_table)
-        return success(self.connection, printError: true)
+        return success(self.channel.connection, printError: true)
     }
 
 
