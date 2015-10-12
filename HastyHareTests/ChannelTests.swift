@@ -46,7 +46,8 @@ class ChannelTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        let res = ch.publish("a message", exchange: "", routingKey: "mytest")
+        let ex = ch.declareExchange("ex")
+        let res = ex.publish("a message", routingKey: "mytest")
         expect(res) == true
     }
 
@@ -56,9 +57,9 @@ class ChannelTests: XCTestCase {
         c.login(username, password: password)
         let ch = c.openChannel()
         let q = ch.declareQueue("queue1")
-        ch.declareExchange("foo")
+        let ex = ch.declareExchange("foo")
         q.bindToExchange("foo", bindingKey: "key1")
-        let res = ch.publish("doc message", exchange: "foo", routingKey: "key1")
+        let res = ex.publish("doc message", routingKey: "key1")
         expect(res) == true
     }
 
@@ -79,9 +80,9 @@ class ChannelTests: XCTestCase {
         c.login(username, password: password)
         let ch = c.openChannel()
         let q = ch.declareQueue("queue2")
-        ch.declareExchange("pop")
+        let ex = ch.declareExchange("pop")
         q.bindToExchange("pop", bindingKey: "bkey")
-        expect(ch.publish("ping", exchange: "pop", routingKey: "bkey")) == true
+        expect(ex.publish("ping", routingKey: "bkey")) == true
 
         let consumer = ch.consumer(q)
         var msg: Message? = nil
@@ -97,11 +98,11 @@ class ChannelTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        ch.declareExchange("nsdata")
+        let ex = ch.declareExchange("nsdata")
 
         // send data
         let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
-        let res = ch.publish(data, exchange: "", routingKey: "mytest")
+        let res = ex.publish(data, routingKey: "mytest")
         expect(res) == true
 
         // check result

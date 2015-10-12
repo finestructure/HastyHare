@@ -30,13 +30,10 @@ public class Exchange {
     }
 
 
-    init(channel: Channel, name: String, type: ExchangeType = .Direct) {
+    init(channel: Channel, name: String, type: ExchangeType = .Direct, passive: Bool = false, durable: Bool = false, autoDelete: Bool = false) {
         self.channel = channel
         self.name = name
 
-        let passive: amqp_boolean_t = 0
-        let durable: amqp_boolean_t = 0
-        let auto_delete: amqp_boolean_t = 0
         let internl: amqp_boolean_t = 0
         let args = amqp_empty_table
         amqp_exchange_declare(
@@ -44,13 +41,40 @@ public class Exchange {
             self.channel.channel,
             name.amqpBytes,
             type.rawValue.amqpBytes,
-            passive,
-            durable,
-            auto_delete,
+            amqp_boolean_t(UInt(passive)),
+            amqp_boolean_t(UInt(durable)),
+            amqp_boolean_t(UInt(autoDelete)),
             internl,
             args
         )
         self._declared = success(self.channel.connection, printError: true)
+    }
+
+
+    func publish(bytes: amqp_bytes_t, routingKey: String) -> Bool {
+        let mandatory: amqp_boolean_t = 0
+        let immediate: amqp_boolean_t = 0
+        amqp_basic_publish(
+            self.channel.connection,
+            self.channel.channel,
+            self.name.amqpBytes,
+            routingKey.amqpBytes,
+            mandatory,
+            immediate,
+            nil,
+            bytes
+        )
+        return success(self.channel.connection, printError: true)
+    }
+
+
+    public func publish(message: String, routingKey: String) -> Bool {
+        return publish(message.amqpBytes, routingKey: routingKey)
+    }
+
+
+    public func publish(data: NSData, routingKey: String) -> Bool {
+        return publish(data.amqpBytes, routingKey: routingKey)
     }
 
 }
