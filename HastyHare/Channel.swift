@@ -10,17 +10,6 @@ import Foundation
 import RabbitMQ
 
 
-public typealias Exchange = String
-
-
-public enum ExchangeType: String {
-    case Direct = "direct"
-    case Fanout = "fanout"
-    case Topic = "topic"
-    case Headers = "headers"
-}
-
-
 public class Channel {
 
     internal let connection: amqp_connection_state_t
@@ -52,28 +41,12 @@ public class Channel {
     }
 
 
-    public func declareExchange(name: Exchange, type: ExchangeType = .Direct) -> Bool {
-        let passive: amqp_boolean_t = 0
-        let durable: amqp_boolean_t = 0
-        let auto_delete: amqp_boolean_t = 0
-        let internl: amqp_boolean_t = 0
-        let args = amqp_empty_table
-        amqp_exchange_declare(
-            connection,
-            channel,
-            name.amqpBytes,
-            type.rawValue.amqpBytes,
-            passive,
-            durable,
-            auto_delete,
-            internl,
-            args
-        )
-        return success(self.connection, printError: true)
+    public func declareExchange(name: String, type: ExchangeType = .Direct) -> Exchange {
+        return Exchange(connection: self.connection, channel: self.channel, name: name, type: type)
     }
 
 
-    public func publish(bytes: amqp_bytes_t, exchange: Exchange, routingKey: String) -> Bool {
+    public func publish(bytes: amqp_bytes_t, exchange: String, routingKey: String) -> Bool {
         let mandatory: amqp_boolean_t = 0
         let immediate: amqp_boolean_t = 0
         amqp_basic_publish(
@@ -90,12 +63,12 @@ public class Channel {
     }
 
     
-    public func publish(message: String, exchange: Exchange, routingKey: String) -> Bool {
+    public func publish(message: String, exchange: String, routingKey: String) -> Bool {
         return publish(message.amqpBytes, exchange: exchange, routingKey: routingKey)
     }
 
 
-    public func publish(data: NSData, exchange: Exchange, routingKey: String) -> Bool {
+    public func publish(data: NSData, exchange: String, routingKey: String) -> Bool {
         return publish(data.amqpBytes, exchange: exchange, routingKey: routingKey)
     }
 

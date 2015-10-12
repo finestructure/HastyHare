@@ -37,7 +37,8 @@ class ChannelTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        expect(ch.declareExchange("foo")) == true
+        let ex = ch.declareExchange("foo")
+        expect(ex.declared) == true
     }
 
 
