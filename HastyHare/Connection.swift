@@ -32,8 +32,10 @@ public class Connection {
     public init(host: String, port: Int) {
         self.connection = amqp_new_connection()
         self.socket = amqp_tcp_socket_new(self.connection)
-        let status = amqp_socket_open(self.socket, host.toMQStr(), Int32(port))
-        self._connected = (status == AMQP_STATUS_OK.rawValue)
+        if self.socket != nil {
+            let status = amqp_socket_open(self.socket, host.toMQStr(), Int32(port))
+            self._connected = (status == AMQP_STATUS_OK.rawValue)
+        }
     }
 
 
