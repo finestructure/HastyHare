@@ -13,6 +13,14 @@ import RabbitMQ
 public typealias Exchange = String
 
 
+public enum ExchangeType: String {
+    case Direct = "direct"
+    case Fanout = "fanout"
+    case Topic = "topic"
+    case Headers = "headers"
+}
+
+
 public class Channel {
 
     internal let connection: amqp_connection_state_t
@@ -44,8 +52,7 @@ public class Channel {
     }
 
 
-    public func declareExchange(name: Exchange) -> Bool {
-        let type = "direct"
+    public func declareExchange(name: Exchange, type: ExchangeType = .Direct) -> Bool {
         let passive: amqp_boolean_t = 0
         let durable: amqp_boolean_t = 0
         let auto_delete: amqp_boolean_t = 0
@@ -55,7 +62,7 @@ public class Channel {
             connection,
             channel,
             name.amqpBytes,
-            type.amqpBytes,
+            type.rawValue.amqpBytes,
             passive,
             durable,
             auto_delete,
