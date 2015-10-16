@@ -75,11 +75,11 @@ public class Consumer {
                                     }
                                     amqp_destroy_message(&msg)
                                 case .ChannelClose:
-                                    break
+                                    return nil
                                 case .ConnectionClose:
-                                    break
+                                    return nil
                                 case .ConnectionCloseOk:
-                                    break
+                                    return nil
                                 default:
                                     print("unexpected method: \(payloadMethod.id)")
                                     return nil
