@@ -10,96 +10,56 @@ import Foundation
 import RabbitMQ
 
 
-public typealias Exchange = String
-
-
 public class Channel {
 
-    internal let connection: amqp_connection_state_t
-    internal let channel: amqp_channel_t
+    private let _connection: amqp_connection_state_t
+    private let _channel: amqp_channel_t
     internal var _open = false
 
 
-    public var open: Bool {
-        return _open
-    }
-
-
     init(connection: amqp_connection_state_t, channel: amqp_channel_t) {
-        self.connection = connection
-        self.channel = channel
+        self._connection = connection
+        self._channel = channel
         amqp_channel_open(connection, channel)
         self._open = success(connection, printError: true)
     }
 
 
     deinit {
-        // FIXME: this triggers an EXC_BAD_ACCESS on deinit
-        //        amqp_channel_close(self.connection, self.channel, AMQP_REPLY_SUCCESS)
+        amqp_channel_close(self.connection, self.channel, AMQP_REPLY_SUCCESS)
+    }
+
+
+    public var open: Bool {
+        return _open
+    }
+
+    public var connection: amqp_connection_state_t {
+        return self._connection
+    }
+
+    public var channel: amqp_channel_t {
+        return self._channel
     }
 
 
     public func declareQueue(name: String) -> Queue {
-        return Queue(connection: self.connection, channel: self.channel, name: name)
+        return Queue(channel: self, name: name)
     }
 
 
-    public func declareExchange(name: Exchange) -> Bool {
-        let type = "direct"
-        let passive: amqp_boolean_t = 0
-        let durable: amqp_boolean_t = 0
-        let auto_delete: amqp_boolean_t = 0
-        let internl: amqp_boolean_t = 0
-        let args = amqp_empty_table
-        amqp_exchange_declare(
-            connection,
-            channel,
-            name.amqpBytes,
-            type.amqpBytes,
-            passive,
-            durable,
-            auto_delete,
-            internl,
-            args
-        )
-        return success(self.connection, printError: true)
-    }
-
-
-    public func publish(bytes: amqp_bytes_t, exchange: Exchange, routingKey: String) -> Bool {
-        let mandatory: amqp_boolean_t = 0
-        let immediate: amqp_boolean_t = 0
-        amqp_basic_publish(
-            self.connection,
-            self.channel,
-            exchange.amqpBytes,
-            routingKey.amqpBytes,
-            mandatory,
-            immediate,
-            nil,
-            bytes
-        )
-        return success(self.connection, printError: true)
-    }
-
-    
-    public func publish(message: String, exchange: Exchange, routingKey: String) -> Bool {
-        return publish(message.amqpBytes, exchange: exchange, routingKey: routingKey)
-    }
-
-
-    public func publish(data: NSData, exchange: Exchange, routingKey: String) -> Bool {
-        return publish(data.amqpBytes, exchange: exchange, routingKey: routingKey)
+    public func declareExchange(name: String, type: ExchangeType = .Direct) -> Exchange {
+        return Exchange(channel: self, name: name, type: type)
     }
 
 
     public func consumer(queueName: String) -> Consumer {
-        return Consumer(connection: self.connection, channel: self.channel, queueName: queueName)
+        return Consumer(channel: self, queueName: queueName)
     }
 
 
     public func consumer(queue: Queue) -> Consumer {
-        return Consumer(connection: self.connection, channel: self.channel, queueName: queue.name)
+        return Consumer(channel: self, queueName: queue.name)
     }
 
 }

@@ -8,7 +8,6 @@
 
 import Foundation
 import RabbitMQ
-//import FeinstrukturUtils
 
 
 public typealias Message = String
@@ -16,28 +15,26 @@ public typealias Message = String
 
 public class Consumer {
 
-    private let connection: amqp_connection_state_t
-    private let channel: amqp_channel_t
+    private let channel: Channel
     internal let tag: String?
 
     public let started: Bool
 
 
-    init(connection: amqp_connection_state_t, channel: amqp_channel_t, queueName: String) {
-        self.connection = connection
+    init(channel: Channel, queueName: String, explicitAck: Bool = false) {
         self.channel = channel
 
         let queue = queueName.amqpBytes
         let noLocal: amqp_boolean_t = 0
-        let noAck: amqp_boolean_t = 0
+        let noAck: amqp_boolean_t = (explicitAck ? 0 : 1)
         let isExclusive: amqp_boolean_t = 0
         let args = amqp_empty_table
         let res = amqp_basic_consume(
-            connection, channel, queue, amqp_empty_bytes, noLocal, noAck, isExclusive, args
+            self.channel.connection, self.channel.channel, queue, amqp_empty_bytes, noLocal, noAck, isExclusive, args
         )
 
         self.tag = String(data: res.memory.consumer_tag)
-        self.started = success(connection, printError: true)
+        self.started = success(self.channel.connection, printError: true)
     }
 
     
@@ -47,16 +44,19 @@ public class Consumer {
 
         while true {
             var envelope = amqp_envelope_t()
+            defer {
+                amqp_destroy_envelope(&envelope)
+            }
 
-            amqp_maybe_release_buffers(self.connection)
-            let res = amqp_consume_message(self.connection, &envelope, nil, 0)
+            amqp_maybe_release_buffers(self.channel.connection)
+            let res = amqp_consume_message(self.channel.connection, &envelope, nil, 0)
 
             if res.reply_type != AMQP_RESPONSE_NORMAL {
 
                 if (res.reply_type == AMQP_RESPONSE_LIBRARY_EXCEPTION
                     && res.library_error == AMQP_STATUS_UNEXPECTED_STATE.rawValue) {
 
-                        let res = amqp_simple_wait_frame(self.connection, &frame)
+                        let res = amqp_simple_wait_frame(self.channel.connection, &frame)
                         if res != AMQP_STATUS_OK.rawValue {
                             return nil
                         }
@@ -71,17 +71,20 @@ public class Consumer {
                                 case .BasicReturn:
                                     // if a published message couldn't be routed and the mandatory flag was set this is what would be returned. The message then needs to be read.
                                     var msg = amqp_message_t()
-                                    let res = amqp_read_message(self.connection, self.channel, &msg, 0)
+                                    let res = amqp_read_message(self.channel.connection, self.channel.channel, &msg, 0)
                                     if res.reply_type != AMQP_RESPONSE_NORMAL {
                                         return nil
                                     }
                                     amqp_destroy_message(&msg)
                                 case .ChannelClose:
-                                    break
+                                    print("channel closed")
+                                    return nil
                                 case .ConnectionClose:
-                                    break
+                                    print("connection closed")
+                                    return nil
                                 case .ConnectionCloseOk:
-                                    break
+                                    print("connection close ok")
+                                    return nil
                                 default:
                                     print("unexpected method: \(payloadMethod.id)")
                                     return nil
@@ -94,13 +97,28 @@ public class Consumer {
                 }
 
             } else {
-                let msg = Message(data: envelope.message.body)
-                amqp_destroy_envelope(&envelope)
-                return msg
+                // TODO: need to figure out where this goes in case we want explicit ack
+                // this is not the right place, 'decoded' is not valid here (the frame has moved on)
+                //  let decoded = method_decoded(&frame)
+                //  let delivery_tag = decoded.memory.delivery_tag
+                //  amqp_basic_ack(self.channel.connection, self.channel.channel, delivery_tag, 0)
+                return Message(data: envelope.message.body)
             }
 
         }
     }
     
+
+    public func listen(handler: Message -> Void) {
+        while true {
+            if let msg = self.pop() {
+                    handler(msg)
+            } else {
+                // stop when we get nil
+                break
+            }
+        }
+    }
+
 }
 
