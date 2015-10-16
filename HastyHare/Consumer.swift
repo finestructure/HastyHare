@@ -21,12 +21,12 @@ public class Consumer {
     public let started: Bool
 
 
-    init(channel: Channel, queueName: String) {
+    init(channel: Channel, queueName: String, explicitAck: Bool = false) {
         self.channel = channel
 
         let queue = queueName.amqpBytes
         let noLocal: amqp_boolean_t = 0
-        let noAck: amqp_boolean_t = 0
+        let noAck: amqp_boolean_t = (explicitAck ? 0 : 1)
         let isExclusive: amqp_boolean_t = 0
         let args = amqp_empty_table
         let res = amqp_basic_consume(
@@ -97,6 +97,11 @@ public class Consumer {
                 }
 
             } else {
+                // TODO: need to figure out where this goes in case we want explicit ack
+                // this is not the right place, 'decoded' is not valid here (the frame has moved on)
+                //  let decoded = method_decoded(&frame)
+                //  let delivery_tag = decoded.memory.delivery_tag
+                //  amqp_basic_ack(self.channel.connection, self.channel.channel, delivery_tag, 0)
                 return Message(data: envelope.message.body)
             }
 
