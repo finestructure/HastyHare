@@ -98,22 +98,22 @@ class ChannelTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        let ex = ch.declareExchange("nsdata")
+        let ex = ch.declareExchange("ex_nsdata")
 
         // send data
         let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
-        let res = ex.publish(data, routingKey: "mytest")
+        let res = ex.publish(data, routingKey: "nsdata")
         expect(res) == true
 
         // check result
-        let q = ch.declareQueue("mytest")
-        q.bindToExchange("nsdata", bindingKey: "mytest")
-        let consumer = ch.consumer("mytest")
+        let q = ch.declareQueue("nsdata")
+        q.bindToExchange("nsdata", bindingKey: "nsdata")
+        let consumer = ch.consumer("nsdata")
         var msg: Message? = nil
         Async.background {
             msg = consumer.pop()
         }
-        expect(msg).toEventuallyNot(beNil(), timeout: 2)
+        expect(msg).toEventuallyNot(beNil(), timeout: 4)
         expect(msg) == Optional("data")
     }
 
