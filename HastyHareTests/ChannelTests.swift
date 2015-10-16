@@ -95,26 +95,66 @@ class ChannelTests: XCTestCase {
 
 
     func test_publish_data() {
-        let c = Connection(host: hostname, port: port)
-        c.login(username, password: password)
-        let ch = c.openChannel()
-        let ex = ch.declareExchange("ex_nsdata")
+        let exchange = "ex_nsdata"
 
-        // send data
-        let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
-        let res = ex.publish(data, routingKey: "nsdata")
-        expect(res) == true
+        do { // send data
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let ex = ch.declareExchange(exchange)
+            let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
+            let res = ex.publish(data, routingKey: "nsdata")
+            expect(res) == true
+        }
 
-        // check result
-        let q = ch.declareQueue("nsdata")
-        q.bindToExchange("nsdata", bindingKey: "nsdata")
-        let consumer = ch.consumer("nsdata")
         var msg: Message? = nil
         Async.background {
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q = ch.declareQueue("nsdata")
+            q.bindToExchange(exchange, bindingKey: "nsdata")
+            let consumer = ch.consumer(q)
             msg = consumer.pop()
         }
-        expect(msg).toEventuallyNot(beNil(), timeout: 4)
+        
+        expect(msg).toEventuallyNot(beNil(), timeout: 5)
         expect(msg) == Optional("data")
+    }
+
+
+    func test_consumer_listen() {
+        let exchange = "ex_listen"
+        var messages = [Message]()
+
+        Async.background { // start listening
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q = ch.declareQueue("listen")
+            q.bindToExchange(exchange, bindingKey: "listen")
+            let consumer = ch.consumer("listen")
+            consumer.listen { msg in
+                messages.append(msg)
+            }
+        }
+
+        do { // send data
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let ex = ch.declareExchange(exchange)
+            ex.publish("0", routingKey: "listen")
+            ex.publish("1", routingKey: "listen")
+            ex.publish("2", routingKey: "listen")
+        }
+
+        expect(messages.count).toEventually(equal(3), timeout: 2)
+        if messages.count == 3 {
+            expect(messages[0]) == "0"
+            expect(messages[1]) == "1"
+            expect(messages[2]) == "2"
+        }
     }
 
 }

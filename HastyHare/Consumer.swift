@@ -8,7 +8,6 @@
 
 import Foundation
 import RabbitMQ
-//import FeinstrukturUtils
 
 
 public typealias Message = String
@@ -45,6 +44,9 @@ public class Consumer {
 
         while true {
             var envelope = amqp_envelope_t()
+            defer {
+                amqp_destroy_envelope(&envelope)
+            }
 
             amqp_maybe_release_buffers(self.channel.connection)
             let res = amqp_consume_message(self.channel.connection, &envelope, nil, 0)
@@ -75,10 +77,13 @@ public class Consumer {
                                     }
                                     amqp_destroy_message(&msg)
                                 case .ChannelClose:
+                                    print("channel closed")
                                     return nil
                                 case .ConnectionClose:
+                                    print("connection closed")
                                     return nil
                                 case .ConnectionCloseOk:
+                                    print("connection close ok")
                                     return nil
                                 default:
                                     print("unexpected method: \(payloadMethod.id)")
@@ -92,13 +97,23 @@ public class Consumer {
                 }
 
             } else {
-                let msg = Message(data: envelope.message.body)
-                amqp_destroy_envelope(&envelope)
-                return msg
+                return Message(data: envelope.message.body)
             }
 
         }
     }
     
+
+    public func listen(handler: Message -> Void) {
+        while true {
+            if let msg = self.pop() {
+                    handler(msg)
+            } else {
+                // stop when we get nil
+                break
+            }
+        }
+    }
+
 }
 
