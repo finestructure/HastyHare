@@ -31,13 +31,47 @@ class ExchangeTests: XCTestCase {
             expect(ex.declared) == true
         }
 
-        do { // bind to it
+        var messages = [String: [Message]]()
+
+        Async.background { // bind q1 to it
             let c = Connection(host: hostname, port: port)
             c.login(username, password: password)
             let ch = c.openChannel()
-            let q = ch.declareQueue("headers_queue")
-            q.bindToExchange(exchange, arguments: Arguments(arguments: ["key": "value"]))
+            let q = ch.declareQueue("q1")
+            q.bindToExchange(exchange, arguments: Arguments(arguments: ["key": "value1"]))
+            messages[q.name] = []
+
+            let consumer = ch.consumer(q)
+            consumer.listen { msg in
+                messages[q.name]?.append(msg)
+            }
         }
+
+        Async.background { // bind q2 to it
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q = ch.declareQueue("q2")
+            q.bindToExchange(exchange, arguments: Arguments(arguments: ["key": "value2"]))
+            messages[q.name] = []
+
+            let consumer = ch.consumer(q)
+            consumer.listen { msg in
+                messages[q.name]?.append(msg)
+            }
+        }
+
+        do { // send message
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let ex = ch.declareExchange(exchange)
+            ex.publish("msg 1", headers: Arguments(arguments: ["key": "value1"]))
+        }
+
+        expect(messages["q1"]?.count).toEventually(equal(1), timeout: 3)
+        expect(messages["q1"]?.first) == Optional("msg 1")
+        expect(messages["q2"]?.count) == 0
     }
 
 }
