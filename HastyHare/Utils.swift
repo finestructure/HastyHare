@@ -48,6 +48,15 @@ extension String {
 }
 
 
+extension Bool {
+
+    var amqpBoolean: amqp_boolean_t {
+        return amqp_boolean_t(UInt(self))
+    }
+
+}
+
+
 extension NSData {
 
     var amqpBytes: amqp_bytes_t {
