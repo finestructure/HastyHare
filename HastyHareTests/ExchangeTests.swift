@@ -15,8 +15,18 @@ import Async
 class ExchangeTests: XCTestCase {
 
     func test_Arguments() {
-        let args = Arguments(arguments: [String:String]())
-        expect(args.amqpTable.num_entries) == 0
+        do {
+            let args = Arguments(arguments: [String:String]())
+            expect(args.amqpTable.num_entries) == 0
+        }
+        do {
+            let args = Arguments(arguments: ["key": "value2", "x-match": "all"])
+            expect(args.amqpTable.num_entries) == 2
+            expect(String(data: args.amqpTable.entries[0].key)) == Optional("key")
+            let val = args.amqpTable.entries[0].value
+            expect(val.kind) == UInt8("x".unicodeScalars.first?.value ?? 0)
+            expect(String(data: args.amqpTable.entries[1].key)) == Optional("x-match")
+        }
     }
 
 
