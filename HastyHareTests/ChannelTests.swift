@@ -95,29 +95,30 @@ class ChannelTests: XCTestCase {
 
 
     func test_publish_data() {
-        let exchange = "ex_nsdata"
-
-        do { // send data
-            let c = Connection(host: hostname, port: port)
-            c.login(username, password: password)
-            let ch = c.openChannel()
-            let ex = ch.declareExchange(exchange)
-            let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
-            let res = ex.publish(data, routingKey: "nsdata")
-            expect(res) == true
-        }
-
         var msg: Message? = nil
         Async.background {
             let c = Connection(host: hostname, port: port)
             c.login(username, password: password)
             let ch = c.openChannel()
             let q = ch.declareQueue("nsdata")
+            let exchange = ch.declareExchange("ex_nsdata")
             q.bindToExchange(exchange, bindingKey: "nsdata")
             let consumer = ch.consumer(q)
             msg = consumer.pop()
+            print("done")
         }
-        
+
+        do { // send data
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let exchange = ch.declareExchange("ex_nsdata")
+            let data = "data".dataUsingEncoding(NSUTF8StringEncoding)!
+            print("sending")
+            let res = exchange.publish(data, routingKey: "nsdata")
+            expect(res) == true
+        }
+
         expect(msg).toEventuallyNot(beNil(), timeout: 5)
         expect(msg) == Optional("data")
     }
