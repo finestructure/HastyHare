@@ -43,7 +43,7 @@ public class Channel {
     }
 
 
-    public func declareQueue(name: String, passive: Bool = false, durable: Bool = false, exclusive: Bool = false, autoDelete: Bool = false) -> Queue {
+    public func declareQueue(name: String, passive: Bool = false, durable: Bool = true, exclusive: Bool = false, autoDelete: Bool = false) -> Queue {
         return Queue(channel: self, name: name, passive: passive, durable: durable, exclusive: exclusive, autoDelete: autoDelete)
     }
 
