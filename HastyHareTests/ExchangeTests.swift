@@ -48,7 +48,8 @@ class ExchangeTests: XCTestCase {
             c.login(username, password: password)
             let ch = c.openChannel()
             let q = ch.declareQueue("q1")
-            q.bindToExchange(exchange, arguments: Arguments(arguments: ["key": "value1"]))
+            q.bindToExchange(exchange,
+                arguments: Arguments(arguments: ["x-match": "any", "a": "value1", "b": "value1"]))
             messages[q.name] = []
 
             let consumer = ch.consumer(q)
@@ -62,7 +63,7 @@ class ExchangeTests: XCTestCase {
             c.login(username, password: password)
             let ch = c.openChannel()
             let q = ch.declareQueue("q2")
-            q.bindToExchange(exchange, arguments: Arguments(arguments: ["key": "value2"]))
+            q.bindToExchange(exchange, arguments: Arguments(arguments: ["a": "value2", "b": "value2"]))
             messages[q.name] = []
 
             let consumer = ch.consumer(q)
@@ -76,10 +77,10 @@ class ExchangeTests: XCTestCase {
             c.login(username, password: password)
             let ch = c.openChannel()
             let ex = ch.declareExchange(exchange)
-            ex.publish("msg 1", headers: Arguments(arguments: ["key": "value1"]))
+            ex.publish("msg 1", headers: Arguments(arguments: ["a": "value1"]))
         }
 
-        expect(messages["q1"]?.count).toEventually(equal(1), timeout: 3)
+        expect(messages["q1"]?.count).toEventually(equal(1), timeout: 5)
         expect(messages["q1"]?.first) == Optional("msg 1")
         expect(messages["q2"]?.count) == 0
     }

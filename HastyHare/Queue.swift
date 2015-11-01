@@ -52,18 +52,20 @@ public class Queue {
     }
 
 
-    init(channel: Channel, name: String) {
+    init(channel: Channel, name: String, passive: Bool, durable: Bool, exclusive: Bool, autoDelete: Bool) {
         self.channel = channel
         self.name = name
-
-        let queue = name.amqpBytes
-        let passive: amqp_boolean_t = 0
-        let durable: amqp_boolean_t = 1
-        let exclusive: amqp_boolean_t = 0
-        let auto_delete: amqp_boolean_t = 0
         let args = amqp_empty_table
+
         let res = amqp_queue_declare(
-            self.channel.connection, self.channel.channel, queue, passive, durable, exclusive, auto_delete, args
+            self.channel.connection,
+            self.channel.channel,
+            self.name.amqpBytes,
+            passive.amqpBoolean,
+            durable.amqpBoolean,
+            exclusive.amqpBoolean,
+            autoDelete.amqpBoolean,
+            args
         )
 
         let sname = String(data: res.memory.queue)

@@ -50,40 +50,43 @@ public class Exchange {
     }
 
 
-    init(channel: Channel, name: String, type: ExchangeType = .Direct, passive: Bool = false, durable: Bool = false, autoDelete: Bool = false) {
+    init(channel: Channel, name: String, type: ExchangeType = .Direct, passive: Bool, durable: Bool, autoDelete: Bool) {
         self.channel = channel
         self.name = name
-
-        let internl: amqp_boolean_t = 0
+        let internl = false
         let args = amqp_empty_table
+
         amqp_exchange_declare(
             self.channel.connection,
             self.channel.channel,
             name.amqpBytes,
             type.rawValue.amqpBytes,
-            amqp_boolean_t(UInt(passive)),
-            amqp_boolean_t(UInt(durable)),
-            amqp_boolean_t(UInt(autoDelete)),
-            internl,
+            passive.amqpBoolean,
+            durable.amqpBoolean,
+            autoDelete.amqpBoolean,
+            internl.amqpBoolean,
             args
         )
+
         self._declared = success(self.channel.connection, printError: true)
     }
 
 
     func publish(bytes: amqp_bytes_t, routingKey: String) -> Bool {
-        let mandatory: amqp_boolean_t = 0
-        let immediate: amqp_boolean_t = 0
+        let mandatory = false
+        let immediate = false
+
         amqp_basic_publish(
             self.channel.connection,
             self.channel.channel,
             self.name.amqpBytes,
             routingKey.amqpBytes,
-            mandatory,
-            immediate,
+            mandatory.amqpBoolean,
+            immediate.amqpBoolean,
             nil,
             bytes
         )
+
         return success(self.channel.connection, printError: true)
     }
     

@@ -43,13 +43,13 @@ public class Channel {
     }
 
 
-    public func declareQueue(name: String) -> Queue {
-        return Queue(channel: self, name: name)
+    public func declareQueue(name: String, passive: Bool = false, durable: Bool = true, exclusive: Bool = false, autoDelete: Bool = false) -> Queue {
+        return Queue(channel: self, name: name, passive: passive, durable: durable, exclusive: exclusive, autoDelete: autoDelete)
     }
 
 
-    public func declareExchange(name: String, type: ExchangeType = .Direct) -> Exchange {
-        return Exchange(channel: self, name: name, type: type)
+    public func declareExchange(name: String, type: ExchangeType = .Direct, passive: Bool = false, durable: Bool = false, autoDelete: Bool = false) -> Exchange {
+        return Exchange(channel: self, name: name, type: type, passive: passive, durable: durable, autoDelete: autoDelete)
     }
 
 
