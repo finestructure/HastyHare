@@ -60,8 +60,7 @@ extension Bool {
 extension NSData {
 
     var amqpBytes: amqp_bytes_t {
-        let p = UnsafePointer<Int8>(self.bytes)
-        return amqp_cstring_bytes(p)
+        return amqp_bytes_t(len: self.length, bytes: UnsafeMutablePointer<Void>(self.bytes))
     }
 
 }
