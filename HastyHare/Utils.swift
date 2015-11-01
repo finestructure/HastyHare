@@ -14,6 +14,7 @@ enum MethodId: amqp_method_number_t {
     case ConnectionClose   =  655410
     case ConnectionCloseOk =  655411
     case ChannelClose      = 1310760
+    case BasicConsume      = 3932181
     case BasicReturn       = 3932210
     case BasicDeliver      = 3932220
     case BasicAck          = 3932240

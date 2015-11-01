@@ -30,59 +30,90 @@ class ExchangeTests: XCTestCase {
     }
 
 
-    func test_headersExchange() {
+    func test_bindToExchange() {
         let exchange = "myheaders"
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        ch.declareExchange("myheaders", type: .Headers)
+        let q = ch.declareQueue("q")
+        expect(q.bindToExchange(exchange,
+            arguments: Arguments(arguments: ["foo": "bar"]))) == true
+    }
 
-        do { // declare exchange
-            let c = Connection(host: hostname, port: port)
-            c.login(username, password: password)
-            let ch = c.openChannel()
-            let ex = ch.declareExchange(exchange, type: .Headers)
-            expect(ex.declared) == true
-        }
 
-        var messages = [String: [Message]]()
 
-        Async.background { // bind q1 to it
-            let c = Connection(host: hostname, port: port)
-            c.login(username, password: password)
-            let ch = c.openChannel()
-            let q = ch.declareQueue("q1")
-            q.bindToExchange(exchange,
-                arguments: Arguments(arguments: ["x-match": "any", "a": "value1", "b": "value1"]))
-            messages[q.name] = []
 
-            let consumer = ch.consumer(q)
-            consumer.listen { msg in
-                messages[q.name]?.append(msg)
-            }
-        }
-
-        Async.background { // bind q2 to it
-            let c = Connection(host: hostname, port: port)
-            c.login(username, password: password)
-            let ch = c.openChannel()
-            let q = ch.declareQueue("q2")
-            q.bindToExchange(exchange, arguments: Arguments(arguments: ["a": "value2", "b": "value2"]))
-            messages[q.name] = []
-
-            let consumer = ch.consumer(q)
-            consumer.listen { msg in
-                messages[q.name]?.append(msg)
-            }
-        }
+    func test_headersExchange_single() {
+        let exchange = "myheaders"
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let ex = ch.declareExchange("myheaders", type: .Headers)
+        let q1 = ch.declareQueue("q1")
 
         do { // send message
+            expect(q1.bindToExchange(exchange,
+                arguments: Arguments(arguments: ["a": "1"]))) == true
+            ex.publish("msg 1", headers: Arguments(arguments: ["a": "1"]))
+        }
+
+        var msg: Message?
+
+        Async.background {
+            let consumer = ch.consumer(q1)
+            consumer.listen { m in
+                msg = m
+            }
+        }
+
+        expect(msg).toEventuallyNot(beNil(), timeout: 2)
+        expect(msg) == Optional("msg 1")
+    }
+
+
+    func test_headersExchange_two_queues() {
+        let exchange = "myheaders2"
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let ex = ch.declareExchange("myheaders2", type: .Headers)
+
+        do { // send message
+            let q1 = ch.declareQueue("q1")
+            let q2 = ch.declareQueue("q2")
+            expect(q1.bindToExchange(exchange,
+                arguments: Arguments(arguments: ["a": "1"]))) == true
+            expect(q2.bindToExchange(exchange,
+                arguments: Arguments(arguments: ["a": "2"]))) == true
+            ex.publish("msg 1", headers: Arguments(arguments: ["a": "1"]))
+        }
+
+        var msg: Message?
+
+        Async.background { // q1
             let c = Connection(host: hostname, port: port)
             c.login(username, password: password)
             let ch = c.openChannel()
-            let ex = ch.declareExchange(exchange)
-            ex.publish("msg 1", headers: Arguments(arguments: ["a": "value1"]))
+            let q1 = ch.declareQueue("q1")
+            let consumer = ch.consumer(q1)
+            consumer.listen { m in
+                msg = m
+            }
         }
 
-        expect(messages["q1"]?.count).toEventually(equal(1), timeout: 5)
-        expect(messages["q1"]?.first) == Optional("msg 1")
-        expect(messages["q2"]?.count) == 0
+        Async.background { // q2
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q2 = ch.declareQueue("q2")
+            let consumer = ch.consumer(q2)
+            consumer.listen { msg in
+                fail("should not have received \(msg) in q2")
+            }
+        }
+
+        expect(msg).toEventually(equal(Optional("msg 1")), timeout: 10)
     }
 
 }
