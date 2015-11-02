@@ -112,7 +112,7 @@ public class Consumer {
     public func listen(handler: Message -> Void) {
         while true {
             if let msg = self.pop() {
-                    handler(msg)
+                handler(msg)
             } else {
                 // stop when we get nil
                 break

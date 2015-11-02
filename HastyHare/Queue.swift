@@ -10,6 +10,36 @@ import Foundation
 import RabbitMQ
 
 
+public class Arguments {
+    let arguments: [String: String]
+    let entries: UnsafeMutablePointer<amqp_table_entry_t>
+
+    init(arguments: [String: String]) {
+        self.arguments = arguments
+        self.entries = {
+            let n = arguments.count
+            let entries = UnsafeMutablePointer<amqp_table_entry_t>.alloc(n)
+            var idx = 0
+            for (key, val) in arguments {
+                var value = amqp_field_value_t()
+                set_field_value_bytes(&value, val.amqpBytes)
+                let e = amqp_table_entry_t(key: key.amqpBytes, value: value)
+                entries[idx++] = e
+            }
+            return entries
+        }()
+    }
+
+    var amqpTable: amqp_table_t {
+        return amqp_table_t(num_entries: Int32(self.arguments.count), entries: entries)
+    }
+
+    deinit {
+        self.entries.destroy()
+    }
+}
+
+
 public class Queue {
 
     private let channel: Channel
@@ -22,18 +52,20 @@ public class Queue {
     }
 
 
-    init(channel: Channel, name: String) {
+    init(channel: Channel, name: String, passive: Bool, durable: Bool, exclusive: Bool, autoDelete: Bool) {
         self.channel = channel
         self.name = name
-
-        let queue = name.amqpBytes
-        let passive: amqp_boolean_t = 0
-        let durable: amqp_boolean_t = 1
-        let exclusive: amqp_boolean_t = 0
-        let auto_delete: amqp_boolean_t = 0
         let args = amqp_empty_table
+
         let res = amqp_queue_declare(
-            self.channel.connection, self.channel.channel, queue, passive, durable, exclusive, auto_delete, args
+            self.channel.connection,
+            self.channel.channel,
+            self.name.amqpBytes,
+            passive.amqpBoolean,
+            durable.amqpBoolean,
+            exclusive.amqpBoolean,
+            autoDelete.amqpBoolean,
+            args
         )
 
         let sname = String(data: res.memory.queue)
@@ -56,6 +88,19 @@ public class Queue {
 
     public func bindToExchange(exchange: Exchange, bindingKey: String) -> Bool {
         return bindToExchange(exchange.name, bindingKey: bindingKey)
+    }
+
+
+    public func bindToExchange(exchangeName: String, arguments: Arguments) -> Bool {
+        amqp_queue_bind(
+            self.channel.connection,
+            self.channel.channel,
+            self.name.amqpBytes,
+            exchangeName.amqpBytes,
+            amqp_empty_bytes,
+            arguments.amqpTable
+        )
+        return success(self.channel.connection, printError: true)
     }
 
 }

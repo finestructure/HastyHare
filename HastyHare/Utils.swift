@@ -14,6 +14,7 @@ enum MethodId: amqp_method_number_t {
     case ConnectionClose   =  655410
     case ConnectionCloseOk =  655411
     case ChannelClose      = 1310760
+    case BasicConsume      = 3932181
     case BasicReturn       = 3932210
     case BasicDeliver      = 3932220
     case BasicAck          = 3932240
@@ -48,11 +49,19 @@ extension String {
 }
 
 
+extension Bool {
+
+    var amqpBoolean: amqp_boolean_t {
+        return amqp_boolean_t(UInt(self))
+    }
+
+}
+
+
 extension NSData {
 
     var amqpBytes: amqp_bytes_t {
-        let p = UnsafePointer<Int8>(self.bytes)
-        return amqp_cstring_bytes(p)
+        return amqp_bytes_t(len: self.length, bytes: UnsafeMutablePointer<Void>(self.bytes))
     }
 
 }
