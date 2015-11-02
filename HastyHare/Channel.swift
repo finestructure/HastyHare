@@ -25,19 +25,16 @@ public class Channel {
     }
 
 
-    deinit {
-        amqp_channel_close(self.connection, self.channel, AMQP_REPLY_SUCCESS)
-    }
-
-
     public var open: Bool {
         return _open
     }
+
 
     public var connection: amqp_connection_state_t {
         return self._connection
     }
 
+    
     public var channel: amqp_channel_t {
         return self._channel
     }
