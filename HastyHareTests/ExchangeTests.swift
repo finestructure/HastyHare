@@ -22,10 +22,10 @@ class ExchangeTests: XCTestCase {
         do {
             let args = Arguments(arguments: ["key": "value2", "x-match": "all"])
             expect(args.amqpTable.num_entries) == 2
-            expect(String(data: args.amqpTable.entries[0].key)) == Optional("key")
+            expect(String(amqpBytes: args.amqpTable.entries[0].key)) == Optional("key")
             let val = args.amqpTable.entries[0].value
             expect(val.kind) == UInt8("x".unicodeScalars.first?.value ?? 0)
-            expect(String(data: args.amqpTable.entries[1].key)) == Optional("x-match")
+            expect(String(amqpBytes: args.amqpTable.entries[1].key)) == Optional("x-match")
         }
     }
 
@@ -68,7 +68,7 @@ class ExchangeTests: XCTestCase {
         }
 
         expect(msg).toEventuallyNot(beNil(), timeout: 2)
-        expect(msg) == Optional("msg 1")
+        expect(msg?.string) == Optional("msg 1")
     }
 
 
@@ -113,7 +113,7 @@ class ExchangeTests: XCTestCase {
             }
         }
 
-        expect(msg).toEventually(equal(Optional("msg 1")), timeout: 10)
+        expect(msg?.string).toEventually(equal(Optional("msg 1")), timeout: 10)
     }
 
 }

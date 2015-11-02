@@ -90,7 +90,7 @@ class ChannelTests: XCTestCase {
             msg = consumer.pop()
         }
         expect(msg).toEventuallyNot(beNil(), timeout: 2)
-        expect(msg) == Optional("ping")
+        expect(msg?.string) == Optional("ping")
     }
 
 
@@ -113,7 +113,8 @@ class ChannelTests: XCTestCase {
             msg = consumer.pop()
         }
         expect(msg).toEventuallyNot(beNil(), timeout: 2)
-        expect(msg) == Optional("nsdata")
+        // even though we sent in NSData we get back string because the NSData can be converted
+        expect(msg?.string) == Optional("nsdata")
     }
 
 
@@ -144,9 +145,9 @@ class ChannelTests: XCTestCase {
 
         expect(messages.count).toEventually(equal(3), timeout: 2)
         if messages.count == 3 {
-            expect(messages[0]) == "0"
-            expect(messages[1]) == "1"
-            expect(messages[2]) == "2"
+            expect(messages[0].string) == "0"
+            expect(messages[1].string) == "1"
+            expect(messages[2].string) == "2"
         }
     }
 

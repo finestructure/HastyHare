@@ -33,7 +33,7 @@ public class Connection {
         self.connection = amqp_new_connection()
         self.socket = amqp_tcp_socket_new(self.connection)
         if self.socket != nil {
-            let status = amqp_socket_open(self.socket, host.toMQStr(), Int32(port))
+            let status = amqp_socket_open(self.socket, host.cstring, Int32(port))
             self._connected = (status == AMQP_STATUS_OK.rawValue)
         }
     }
@@ -53,13 +53,13 @@ public class Connection {
             let sasl_method = AMQP_SASL_METHOD_PLAIN
             let reply = amqp_login_with_credentials(
                 self.connection,
-                vhost.toMQStr(),
+                vhost.cstring,
                 channel_max,
                 frame_max,
                 heartbeat,
                 sasl_method,
-                username.toMQStr(),
-                password.toMQStr()
+                username.cstring,
+                password.cstring
             )
             self._loggedIn = success(reply, printError: true)
         }

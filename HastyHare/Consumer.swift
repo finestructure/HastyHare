@@ -10,9 +10,6 @@ import Foundation
 import RabbitMQ
 
 
-public typealias Message = String
-
-
 public class Consumer {
 
     private let channel: Channel
@@ -33,7 +30,7 @@ public class Consumer {
             self.channel.connection, self.channel.channel, queue, amqp_empty_bytes, noLocal, noAck, isExclusive, args
         )
 
-        self.tag = String(data: res.memory.consumer_tag)
+        self.tag = String(amqpBytes: res.memory.consumer_tag)
         self.started = success(self.channel.connection, printError: true)
     }
 
@@ -102,7 +99,12 @@ public class Consumer {
                 //  let decoded = method_decoded(&frame)
                 //  let delivery_tag = decoded.memory.delivery_tag
                 //  amqp_basic_ack(self.channel.connection, self.channel.channel, delivery_tag, 0)
-                return Message(data: envelope.message.body)
+                if let s = String(amqpBytes: envelope.message.body) {
+                    return Message(s)
+                } else {
+                    let d = NSData(amqpBytes: envelope.message.body)
+                    return Message(d)
+                }
             }
 
         }

@@ -23,23 +23,17 @@ enum MethodId: amqp_method_number_t {
 
 extension String {
 
-    func toMQStr() -> UnsafePointer<Int8> {
+    var cstring: UnsafePointer<Int8> {
         return (self as NSString).cStringUsingEncoding(NSUTF8StringEncoding)
     }
 
-
     var amqpBytes: amqp_bytes_t {
-        return amqp_cstring_bytes(self.toMQStr())
+        return amqp_cstring_bytes(self.cstring)
     }
 
-
-    init?(MQStr: UnsafePointer<Int8>) {
-        self.init(CString: MQStr, encoding: NSUTF8StringEncoding)
-    }
-
-    init?(data: amqp_bytes_t) {
+    init?(amqpBytes: amqp_bytes_t) {
         // need to go via NSString here, the same initialiser for String does not work correctly
-        if let s = NSString(bytes: data.bytes, length: data.len, encoding: NSUTF8StringEncoding) {
+        if let s = NSString(bytes: amqpBytes.bytes, length: amqpBytes.len, encoding: NSUTF8StringEncoding) {
             self.init(s)
         } else {
             return nil
@@ -60,6 +54,10 @@ extension Bool {
 
 extension NSData {
 
+    convenience init(amqpBytes: amqp_bytes_t) {
+        self.init(bytes: amqpBytes.bytes, length: amqpBytes.len)
+    }
+
     var amqpBytes: amqp_bytes_t {
         return amqp_bytes_t(len: self.length, bytes: UnsafeMutablePointer<Void>(self.bytes))
     }
@@ -73,7 +71,7 @@ func errorDescriptionForReply(reply: amqp_rpc_reply_t) -> String {
         return "reply type 'none'"
     case AMQP_RESPONSE_LIBRARY_EXCEPTION.rawValue:
         let error = amqp_error_string2(reply.library_error)
-        return String(MQStr: error) ?? "Unknow library error"
+        return String(CString: error, encoding: NSUTF8StringEncoding) ?? "Unknow library error"
     case AMQP_RESPONSE_SERVER_EXCEPTION.rawValue:
         switch reply.reply.id {
         case MethodId.ConnectionClose.rawValue:

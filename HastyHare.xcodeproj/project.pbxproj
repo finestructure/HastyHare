@@ -7,23 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A01D4651BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
-		5A01D4661BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */; settings = {ASSET_TAGS = (); }; };
+		5A01D4651BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */; };
+		5A01D4661BC2C406002DD482 /* librabbitmq.4.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4641BC2C406002DD482 /* librabbitmq.4.1.1.dylib */; };
 		5A01D4671BC2C432002DD482 /* RabbitMQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D45E1BC2C3C1002DD482 /* RabbitMQ.framework */; };
 		5A01D47D1BC2CA8B002DD482 /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A01D4771BC2C9F4002DD482 /* Async.framework */; };
 		5A04A4D41BB94DBD00FB4A58 /* HastyHare.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A04A4D31BB94DBD00FB4A58 /* HastyHare.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */; settings = {ASSET_TAGS = (); }; };
+		5A04A4DB1BB94DBE00FB4A58 /* HastyHare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4D01BB94DBD00FB4A58 /* HastyHare.framework */; };
 		5A04A4E01BB94DBE00FB4A58 /* LowLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A4DF1BB94DBE00FB4A58 /* LowLevelTests.swift */; };
 		5A04A4FA1BB9520D00FB4A58 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A04A4F71BB951FA00FB4A58 /* Nimble.framework */; };
-		5A04A5321BBAED3700FB4A58 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5311BBAED3700FB4A58 /* Connection.swift */; settings = {ASSET_TAGS = (); }; };
-		5A1A1B811BCB956A0027F482 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A1B801BCB956A0027F482 /* Exchange.swift */; settings = {ASSET_TAGS = (); }; };
-		5A7042261BBC129F00A97787 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7042251BBC129F00A97787 /* Queue.swift */; settings = {ASSET_TAGS = (); }; };
-		5A738F331BBBBFDA00C99F3E /* ChannelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */; settings = {ASSET_TAGS = (); }; };
-		5A738F391BBBC0EE00C99F3E /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A738F381BBBC0EE00C99F3E /* Channel.swift */; settings = {ASSET_TAGS = (); }; };
-		5AA33C741BBD1E050091F20E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA33C731BBD1E050091F20E /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
-		5AB1A8FD1BD156E800BED78A /* ExchangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB1A8FC1BD156E800BED78A /* ExchangeTests.swift */; settings = {ASSET_TAGS = (); }; };
-		5AC76A6A1BBD9E58005754AF /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC76A691BBD9E58005754AF /* Consumer.swift */; settings = {ASSET_TAGS = (); }; };
-		5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */; settings = {ASSET_TAGS = (); }; };
+		5A04A5321BBAED3700FB4A58 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04A5311BBAED3700FB4A58 /* Connection.swift */; };
+		5A1A1B811BCB956A0027F482 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A1B801BCB956A0027F482 /* Exchange.swift */; };
+		5A7042261BBC129F00A97787 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7042251BBC129F00A97787 /* Queue.swift */; };
+		5A738F331BBBBFDA00C99F3E /* ChannelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */; };
+		5A738F391BBBC0EE00C99F3E /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A738F381BBBC0EE00C99F3E /* Channel.swift */; };
+		5A745AEF1BE791B90025D941 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A745AEE1BE791B90025D941 /* Message.swift */; };
+		5AA33C741BBD1E050091F20E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA33C731BBD1E050091F20E /* Utils.swift */; };
+		5AB1A8FD1BD156E800BED78A /* ExchangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB1A8FC1BD156E800BED78A /* ExchangeTests.swift */; };
+		5AC76A6A1BBD9E58005754AF /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC76A691BBD9E58005754AF /* Consumer.swift */; };
+		5AD0EE371BBAF6B6005CCD9F /* ConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD0EE361BBAF6B6005CCD9F /* ConnectionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,13 @@
 			remoteGlobalIDString = 1F925EB7195C0D6300ED456B;
 			remoteInfo = "Nimble-OSXTests";
 		};
+		5A745AF21BE791BA0025D941 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A01D46F1BC2C9F4002DD482 /* Async.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 14CD471B1BDF23B9008F83EC;
+			remoteInfo = "Async tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +130,7 @@
 		5A7042251BBC129F00A97787 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = HastyHare/Queue.swift; sourceTree = "<group>"; };
 		5A738F321BBBBFDA00C99F3E /* ChannelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTests.swift; sourceTree = "<group>"; };
 		5A738F381BBBC0EE00C99F3E /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Channel.swift; path = HastyHare/Channel.swift; sourceTree = "<group>"; };
+		5A745AEE1BE791B90025D941 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = HastyHare/Message.swift; sourceTree = "<group>"; };
 		5AA33C731BBD1E050091F20E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = HastyHare/Utils.swift; sourceTree = "<group>"; };
 		5AB1A8FC1BD156E800BED78A /* ExchangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExchangeTests.swift; sourceTree = "<group>"; };
 		5AC76A691BBD9E58005754AF /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Consumer.swift; path = HastyHare/Consumer.swift; sourceTree = "<group>"; };
@@ -166,6 +175,7 @@
 			children = (
 				5A01D4751BC2C9F4002DD482 /* Async.framework */,
 				5A01D4771BC2C9F4002DD482 /* Async.framework */,
+				5A745AF31BE791BA0025D941 /* Async.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -240,6 +250,7 @@
 				5A04A5311BBAED3700FB4A58 /* Connection.swift */,
 				5AC76A691BBD9E58005754AF /* Consumer.swift */,
 				5A1A1B801BCB956A0027F482 /* Exchange.swift */,
+				5A745AEE1BE791B90025D941 /* Message.swift */,
 				5A7042251BBC129F00A97787 /* Queue.swift */,
 				5AA33C731BBD1E050091F20E /* Utils.swift */,
 			);
@@ -406,6 +417,13 @@
 			remoteRef = 5A04A4F81BB951FA00FB4A58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5A745AF31BE791BA0025D941 /* Async.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Async.framework;
+			remoteRef = 5A745AF21BE791BA0025D941 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -436,6 +454,7 @@
 				5AC76A6A1BBD9E58005754AF /* Consumer.swift in Sources */,
 				5A04A5321BBAED3700FB4A58 /* Connection.swift in Sources */,
 				5A7042261BBC129F00A97787 /* Queue.swift in Sources */,
+				5A745AEF1BE791B90025D941 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

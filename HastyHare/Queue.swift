@@ -68,7 +68,7 @@ public class Queue {
             args
         )
 
-        let sname = String(data: res.memory.queue)
+        let sname = String(amqpBytes: res.memory.queue)
         assert(sname != nil && (sname! == name))
         self._declared = success(self.channel.connection, printError: true)
     }
