@@ -85,12 +85,14 @@ class ChannelTests: XCTestCase {
         expect(ex.publish("ping", routingKey: "bkey")) == true
 
         let consumer = ch.consumer(q)
-        var msg: Message? = nil
+        var msg: String? = nil
         Async.background {
-            msg = consumer.pop()
+            if let d = consumer.pop() {
+                msg = String(data: d, encoding: NSUTF8StringEncoding)
+            }
         }
         expect(msg).toEventuallyNot(beNil(), timeout: 2)
-        expect(msg?.string) == Optional("ping")
+        expect(msg) == Optional("ping")
     }
 
 
@@ -107,20 +109,22 @@ class ChannelTests: XCTestCase {
             expect(ex.publish(data, routingKey: "nsdata")) == true
         }
 
-        var msg: Message? = nil
+        var msg: String? = nil
         Async.background {
             let consumer = ch.consumer(q)
-            msg = consumer.pop()
+            if let d = consumer.pop() {
+                msg = String(data: d, encoding: NSUTF8StringEncoding)
+            }
         }
         expect(msg).toEventuallyNot(beNil(), timeout: 2)
         // even though we sent in NSData we get back string because the NSData can be converted
-        expect(msg?.string) == Optional("nsdata")
+        expect(msg) == Optional("nsdata")
     }
 
 
     func test_consumer_listen() {
         let exchange = "ex_listen"
-        var messages = [Message]()
+        var messages = [String]()
 
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
@@ -139,15 +143,17 @@ class ChannelTests: XCTestCase {
         Async.background { // start listening
             let consumer = ch.consumer("listen")
             consumer.listen { msg in
-                messages.append(msg)
+                if let s = String(data: msg, encoding: NSUTF8StringEncoding) {
+                    messages.append(s)
+                }
             }
         }
 
         expect(messages.count).toEventually(equal(3), timeout: 2)
         if messages.count == 3 {
-            expect(messages[0].string) == "0"
-            expect(messages[1].string) == "1"
-            expect(messages[2].string) == "2"
+            expect(messages[0]) == "0"
+            expect(messages[1]) == "1"
+            expect(messages[2]) == "2"
         }
     }
 

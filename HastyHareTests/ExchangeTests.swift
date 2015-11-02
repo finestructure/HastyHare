@@ -58,17 +58,19 @@ class ExchangeTests: XCTestCase {
             ex.publish("msg 1", headers: Arguments(arguments: ["a": "1"]))
         }
 
-        var msg: Message?
+        var msg: String?
 
         Async.background {
             let consumer = ch.consumer(q1)
-            consumer.listen { m in
-                msg = m
+            consumer.listen { d in
+                if let s = String(data: d, encoding: NSUTF8StringEncoding) {
+                    msg = s
+                }
             }
         }
 
         expect(msg).toEventuallyNot(beNil(), timeout: 2)
-        expect(msg?.string) == Optional("msg 1")
+        expect(msg) == Optional("msg 1")
     }
 
 
@@ -89,7 +91,7 @@ class ExchangeTests: XCTestCase {
             ex.publish("msg 1", headers: Arguments(arguments: ["a": "1"]))
         }
 
-        var msg: Message?
+        var msg: String?
 
         Async.background { // q1
             let c = Connection(host: hostname, port: port)
@@ -97,8 +99,10 @@ class ExchangeTests: XCTestCase {
             let ch = c.openChannel()
             let q1 = ch.declareQueue("q1")
             let consumer = ch.consumer(q1)
-            consumer.listen { m in
-                msg = m
+            consumer.listen { d in
+                if let s = String(data: d, encoding: NSUTF8StringEncoding) {
+                    msg = s
+                }
             }
         }
 
@@ -113,7 +117,7 @@ class ExchangeTests: XCTestCase {
             }
         }
 
-        expect(msg?.string).toEventually(equal(Optional("msg 1")), timeout: 10)
+        expect(msg).toEventually(equal(Optional("msg 1")), timeout: 10)
     }
 
 }

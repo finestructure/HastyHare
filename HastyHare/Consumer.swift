@@ -36,7 +36,7 @@ public class Consumer {
 
     
 
-    public func pop() -> Message? {
+    public func pop() -> NSData? {
         var frame = amqp_frame_t()
 
         while true {
@@ -99,19 +99,14 @@ public class Consumer {
                 //  let decoded = method_decoded(&frame)
                 //  let delivery_tag = decoded.memory.delivery_tag
                 //  amqp_basic_ack(self.channel.connection, self.channel.channel, delivery_tag, 0)
-                if let s = String(amqpBytes: envelope.message.body) {
-                    return Message(s)
-                } else {
-                    let d = NSData(amqpBytes: envelope.message.body)
-                    return Message(d)
-                }
+                return NSData(amqpBytes: envelope.message.body)
             }
 
         }
     }
     
 
-    public func listen(handler: Message -> Void) {
+    public func listen(handler: NSData -> Void) {
         while true {
             if let msg = self.pop() {
                 handler(msg)
