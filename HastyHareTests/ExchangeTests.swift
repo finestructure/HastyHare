@@ -35,13 +35,11 @@ class ExchangeTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        ch.declareExchange("myheaders", type: .Headers)
+        ch.declareExchange(exchange, type: .Headers)
         let q = ch.declareQueue("q")
         expect(q.bindToExchange(exchange,
             arguments: Arguments(arguments: ["foo": "bar"]))) == true
     }
-
-
 
 
     func test_headersExchange_single() {
@@ -49,7 +47,7 @@ class ExchangeTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        let ex = ch.declareExchange("myheaders", type: .Headers)
+        let ex = ch.declareExchange(exchange, type: .Headers)
         let q1 = ch.declareQueue("q1")
 
         do { // send message
@@ -79,7 +77,7 @@ class ExchangeTests: XCTestCase {
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
-        let ex = ch.declareExchange("myheaders2", type: .Headers)
+        let ex = ch.declareExchange(exchange, type: .Headers)
 
         do { // send message
             let q1 = ch.declareQueue("q1")
@@ -117,7 +115,52 @@ class ExchangeTests: XCTestCase {
             }
         }
 
-        expect(msg).toEventually(equal(Optional("msg 1")), timeout: 10)
+        expect(msg).toEventually(equal(Optional("msg 1")), timeout: 5)
+    }
+
+
+    func test_topicExchange() {
+        let exchange = "mytopic"
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let ex = ch.declareExchange(exchange, type: .Topic)
+
+        do { // send message
+            let q1 = ch.declareQueue("q1")
+            let q2 = ch.declareQueue("q2")
+            expect(q1.bindToExchange(exchange, bindingKey: "doc1.1.#")) == true
+            expect(q2.bindToExchange(exchange, bindingKey: "doc1.2.#")) == true
+            ex.publish("msg 1", routingKey: "doc1.1")
+        }
+
+        var msg: String?
+
+        Async.background { // q1
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q1 = ch.declareQueue("q1")
+            let consumer = ch.consumer(q1)
+            consumer.listen { d in
+                if let s = String(data: d, encoding: NSUTF8StringEncoding) {
+                    msg = s
+                }
+            }
+        }
+
+        Async.background { // q2
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q2 = ch.declareQueue("q2")
+            let consumer = ch.consumer(q2)
+            consumer.listen { msg in
+                fail("should not have received \(msg) in q2")
+            }
+        }
+
+        expect(msg).toEventually(equal(Optional("msg 1")), timeout: 5)
     }
 
 }
