@@ -57,7 +57,7 @@ public class Queue {
         self.name = name
         let args = amqp_empty_table
 
-        let res = amqp_queue_declare(
+        amqp_queue_declare(
             self.channel.connection,
             self.channel.channel,
             self.name.amqpBytes,
@@ -68,8 +68,6 @@ public class Queue {
             args
         )
 
-        let sname = String(amqpBytes: res.memory.queue)
-        assert(sname != nil && (sname! == name))
         self._declared = success(self.channel.connection, printError: true)
     }
 
