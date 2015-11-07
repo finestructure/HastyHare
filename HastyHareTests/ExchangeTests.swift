@@ -36,19 +36,19 @@ class ExchangeTests: XCTestCase {
         c.login(username, password: password)
         let ch = c.openChannel()
         ch.declareExchange(exchange, type: .Headers)
-        let q = ch.declareQueue("q")
+        let q = ch.declareQueue("q", exclusive: true)
         expect(q.bindToExchange(exchange,
             arguments: Arguments(arguments: ["foo": "bar"]))) == true
     }
 
 
     func test_headersExchange_single() {
-        let exchange = "myheaders"
+        let exchange = "headers_single"
         let c = Connection(host: hostname, port: port)
         c.login(username, password: password)
         let ch = c.openChannel()
         let ex = ch.declareExchange(exchange, type: .Headers)
-        let q1 = ch.declareQueue("q1")
+        let q1 = ch.declareQueue("q", exclusive: true)
 
         do { // send message
             expect(q1.bindToExchange(exchange,
@@ -161,6 +161,53 @@ class ExchangeTests: XCTestCase {
         }
 
         expect(msg).toEventually(equal(Optional("msg 1")), timeout: 5)
+    }
+
+
+    func test_fanoutExchange() {
+        let exchange = "myfanout"
+        let c = Connection(host: hostname, port: port)
+        c.login(username, password: password)
+        let ch = c.openChannel()
+        let ex = ch.declareExchange(exchange, type: .Fanout)
+
+        do { // send message
+            let q1 = ch.declareQueue("q5", autoDelete: true)
+            let q2 = ch.declareQueue("q6", autoDelete: true)
+            expect(q1.bindToExchange(exchange, bindingKey: "")) == true
+            expect(q2.bindToExchange(exchange, bindingKey: "irrelevant")) == true
+            ex.publish("msg", routingKey: "anything")
+        }
+
+        var msg = [String]()
+
+        Async.background { // q1
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q1 = ch.declareQueue("q5", autoDelete: true)
+            let consumer = ch.consumer(q1)
+            consumer.listen { d in
+                if let s = String(data: d, encoding: NSUTF8StringEncoding) {
+                    msg.append(s)
+                }
+            }
+        }
+
+        Async.background { // q2
+            let c = Connection(host: hostname, port: port)
+            c.login(username, password: password)
+            let ch = c.openChannel()
+            let q2 = ch.declareQueue("q6", autoDelete: true)
+            let consumer = ch.consumer(q2)
+            consumer.listen { d in
+                if let s = String(data: d, encoding: NSUTF8StringEncoding) {
+                    msg.append(s)
+                }
+            }
+        }
+
+        expect(msg.count).toEventually(equal(2), timeout: 5)
     }
 
 }
