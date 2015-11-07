@@ -127,8 +127,8 @@ class ExchangeTests: XCTestCase {
         let ex = ch.declareExchange(exchange, type: .Topic)
 
         do { // send message
-            let q1 = ch.declareQueue("q1")
-            let q2 = ch.declareQueue("q2")
+            let q1 = ch.declareQueue("q3")
+            let q2 = ch.declareQueue("q4")
             expect(q1.bindToExchange(exchange, bindingKey: "doc1.1.#")) == true
             expect(q2.bindToExchange(exchange, bindingKey: "doc1.2.#")) == true
             ex.publish("msg 1", routingKey: "doc1.1")
@@ -140,7 +140,7 @@ class ExchangeTests: XCTestCase {
             let c = Connection(host: hostname, port: port)
             c.login(username, password: password)
             let ch = c.openChannel()
-            let q1 = ch.declareQueue("q1")
+            let q1 = ch.declareQueue("q3")
             let consumer = ch.consumer(q1)
             consumer.listen { d in
                 if let s = String(data: d, encoding: NSUTF8StringEncoding) {
@@ -153,10 +153,10 @@ class ExchangeTests: XCTestCase {
             let c = Connection(host: hostname, port: port)
             c.login(username, password: password)
             let ch = c.openChannel()
-            let q2 = ch.declareQueue("q2")
+            let q2 = ch.declareQueue("q4")
             let consumer = ch.consumer(q2)
             consumer.listen { msg in
-                fail("should not have received \(msg) in q2")
+                fail("should not have received \(msg) in q4")
             }
         }
 
