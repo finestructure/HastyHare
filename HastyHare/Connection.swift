@@ -61,7 +61,7 @@ public class Connection {
                 username.cstring,
                 password.cstring
             )
-            self._loggedIn = success(reply, printError: true)
+            self._loggedIn = decode(reply).success
         }
     }
 

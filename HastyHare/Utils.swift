@@ -65,60 +65,53 @@ extension NSData {
 }
 
 
-func errorDescriptionForReply(reply: amqp_rpc_reply_t) -> String {
+enum Response {
+    case Success
+    case None
+    case UnknownLibraryException(String)
+    case ConnectionClosed
+    case ChannelClosed
+    case UnknownServerException
+    case Undefined  // catch all for codes that haven't been handled specifically above
+
+    var success: Bool {
+        switch self {
+        case .Success:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+
+func decode(reply: amqp_rpc_reply_t) -> Response {
     switch reply.reply_type.rawValue {
+    case AMQP_RESPONSE_NORMAL.rawValue:
+        return .Success
     case AMQP_RESPONSE_NONE.rawValue:
-        return "reply type 'none'"
+        return .None
     case AMQP_RESPONSE_LIBRARY_EXCEPTION.rawValue:
         let error = amqp_error_string2(reply.library_error)
-        return String(CString: error, encoding: NSUTF8StringEncoding) ?? "Unknow library error"
+        let s = String(CString: error, encoding: NSUTF8StringEncoding) ?? "undecoded library exception"
+        return .UnknownLibraryException(s)
     case AMQP_RESPONSE_SERVER_EXCEPTION.rawValue:
         switch reply.reply.id {
         case MethodId.ConnectionClose.rawValue:
-            return "Server exception: connection closed"
+            return .ConnectionClosed
         case MethodId.ChannelClose.rawValue:
-            return "Server exception: channel closed"
+            return .ChannelClosed
         default:
-            return "Unknown server exception"
+            return .UnknownServerException
         }
     default:
-        return "no error"
+        return .Undefined
     }
 }
 
 
-typealias Error = String
-
-
-func replyToError(reply: amqp_rpc_reply_t) -> Error? {
-    if reply.reply_type.rawValue == AMQP_RESPONSE_NORMAL.rawValue {
-        return nil
-    } else {
-        return errorDescriptionForReply(reply)
-    }
-}
-
-
-func success(connection: amqp_connection_state_t, printError: Bool = false) -> Bool {
+func getReply(connection: amqp_connection_state_t) -> Response {
     let reply = amqp_get_rpc_reply(connection)
-    if let error = replyToError(reply) {
-        if printError {
-            print(error)
-        }
-        return false
-    } else {
-        return true
-    }
+    return decode(reply)
 }
 
-
-func success(reply: amqp_rpc_reply_t, printError: Bool = false) -> Bool {
-    if let error = replyToError(reply) {
-        if printError {
-            print(error)
-        }
-        return false
-    } else {
-        return true
-    }
-}

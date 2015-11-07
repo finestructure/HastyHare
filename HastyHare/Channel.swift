@@ -21,7 +21,7 @@ public class Channel {
         self._connection = connection
         self._channel = channel
         amqp_channel_open(connection, channel)
-        self._open = success(connection, printError: true)
+        self._open = getReply(connection).success
     }
 
 

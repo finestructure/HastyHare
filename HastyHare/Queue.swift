@@ -43,7 +43,7 @@ public class Arguments {
 public class Queue {
 
     private let channel: Channel
-    internal let name: String
+    public let name: String
     private var _declared = false
 
 
@@ -68,7 +68,7 @@ public class Queue {
             args
         )
 
-        self._declared = success(self.channel.connection, printError: true)
+        self._declared = getReply(self.channel.connection).success
     }
 
 
@@ -80,7 +80,7 @@ public class Queue {
             exchangeName.amqpBytes,
             bindingKey.amqpBytes,
             amqp_empty_table)
-        return success(self.channel.connection, printError: true)
+        return getReply(self.channel.connection).success
     }
 
 
@@ -98,7 +98,7 @@ public class Queue {
             amqp_empty_bytes,
             arguments.amqpTable
         )
-        return success(self.channel.connection, printError: true)
+        return getReply(self.channel.connection).success
     }
 
 }

@@ -68,7 +68,7 @@ public class Exchange {
             args
         )
 
-        self._declared = success(self.channel.connection, printError: true)
+        self._declared = getReply(self.channel.connection).success
     }
 
 
@@ -87,7 +87,7 @@ public class Exchange {
             bytes
         )
 
-        return success(self.channel.connection, printError: true)
+        return getReply(self.channel.connection).success
     }
     
     
@@ -121,7 +121,7 @@ public class Exchange {
             &properties,
             message.amqpBytes
         )
-        return success(self.channel.connection, printError: true)
+        return getReply(self.channel.connection).success
     }
 
 }

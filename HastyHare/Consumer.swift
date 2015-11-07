@@ -31,7 +31,7 @@ public class Consumer {
         )
 
         self.tag = String(amqpBytes: res.memory.consumer_tag)
-        self.started = success(self.channel.connection, printError: true)
+        self.started = getReply(self.channel.connection).success
     }
 
     
