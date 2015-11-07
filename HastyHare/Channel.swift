@@ -21,7 +21,12 @@ public class Channel {
         self._connection = connection
         self._channel = channel
         amqp_channel_open(connection, channel)
-        self._open = getReply(connection).success
+        self._open = self.lastResponse.success
+    }
+
+
+    var lastResponse: Response {
+        return getResponse(self.connection)
     }
 
 

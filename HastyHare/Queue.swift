@@ -68,7 +68,7 @@ public class Queue {
             args
         )
 
-        self._declared = getReply(self.channel.connection).success
+        self._declared = self.channel.lastResponse.success
     }
 
 
@@ -80,7 +80,7 @@ public class Queue {
             exchangeName.amqpBytes,
             bindingKey.amqpBytes,
             amqp_empty_table)
-        return getReply(self.channel.connection).success
+        return self.channel.lastResponse.success
     }
 
 
@@ -98,7 +98,7 @@ public class Queue {
             amqp_empty_bytes,
             arguments.amqpTable
         )
-        return getReply(self.channel.connection).success
+        return self.channel.lastResponse.success
     }
 
 }

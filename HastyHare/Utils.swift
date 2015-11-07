@@ -65,7 +65,7 @@ extension NSData {
 }
 
 
-enum Response {
+public enum Response {
     case Success
     case None
     case UnknownLibraryException(String)
@@ -110,7 +110,7 @@ func decode(reply: amqp_rpc_reply_t) -> Response {
 }
 
 
-func getReply(connection: amqp_connection_state_t) -> Response {
+func getResponse(connection: amqp_connection_state_t) -> Response {
     let reply = amqp_get_rpc_reply(connection)
     return decode(reply)
 }

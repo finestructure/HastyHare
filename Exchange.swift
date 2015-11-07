@@ -41,7 +41,7 @@ struct PropertiesFlags: OptionSetType {
 public class Exchange {
 
     private let channel: Channel
-    internal let name: String
+    public let name: String
     private var _declared = false
 
 
@@ -68,7 +68,7 @@ public class Exchange {
             args
         )
 
-        self._declared = getReply(self.channel.connection).success
+        self._declared = self.channel.lastResponse.success
     }
 
 
@@ -87,7 +87,7 @@ public class Exchange {
             bytes
         )
 
-        return getReply(self.channel.connection).success
+        return self.channel.lastResponse.success
     }
     
     
@@ -121,7 +121,7 @@ public class Exchange {
             &properties,
             message.amqpBytes
         )
-        return getReply(self.channel.connection).success
+        return self.channel.lastResponse.success
     }
 
 }
