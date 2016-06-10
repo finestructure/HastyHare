@@ -1,0 +1,58 @@
+Fri 10 Jun 2016 16:48:45 BST
+Darwin Rhea.local 15.5.0 Darwin Kernel Version 15.5.0: Tue Apr 19 18:36:36 PDT 2016; root:xnu-3248.50.21~8/RELEASE_X86_64 x86_64
+Test Suite 'All tests' started at 2016-06-10 16:48:53.908
+Test Suite 'HastyHareTests.xctest' started at 2016-06-10 16:48:53.913
+Test Suite 'ChannelTests' started at 2016-06-10 16:48:53.915
+Test Case '-[HastyHareTests.ChannelTests test_bindToExchange]' started.
+Test Case '-[HastyHareTests.ChannelTests test_bindToExchange]' passed (0.044 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_consumer]' started.
+Test Case '-[HastyHareTests.ChannelTests test_consumer]' passed (0.023 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_consumer_listen]' started.
+Test Case '-[HastyHareTests.ChannelTests test_consumer_listen]' passed (0.036 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_consumer_pop]' started.
+Test Case '-[HastyHareTests.ChannelTests test_consumer_pop]' passed (0.015 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_declareExchange]' started.
+Test Case '-[HastyHareTests.ChannelTests test_declareExchange]' passed (0.010 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_declareQueue]' started.
+Test Case '-[HastyHareTests.ChannelTests test_declareQueue]' passed (0.010 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_openChannel]' started.
+Test Case '-[HastyHareTests.ChannelTests test_openChannel]' passed (0.011 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_publish]' started.
+Test Case '-[HastyHareTests.ChannelTests test_publish]' passed (0.013 seconds).
+Test Case '-[HastyHareTests.ChannelTests test_publish_data]' started.
+Test Case '-[HastyHareTests.ChannelTests test_publish_data]' passed (0.026 seconds).
+Test Suite 'ChannelTests' passed at 2016-06-10 16:48:54.136.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.188 (0.221) seconds
+Test Suite 'ConnectionTests' started at 2016-06-10 16:48:54.140
+Test Case '-[HastyHareTests.ConnectionTests test_init]' started.
+Test Case '-[HastyHareTests.ConnectionTests test_init]' passed (0.006 seconds).
+Test Case '-[HastyHareTests.ConnectionTests test_login]' started.
+Test Case '-[HastyHareTests.ConnectionTests test_login]' passed (0.009 seconds).
+Test Case '-[HastyHareTests.ConnectionTests test_login_error]' started.
+Test Case '-[HastyHareTests.ConnectionTests test_login_error]' passed (0.008 seconds).
+Test Suite 'ConnectionTests' passed at 2016-06-10 16:48:54.176.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.023 (0.035) seconds
+Test Suite 'ExchangeTests' started at 2016-06-10 16:48:54.179
+Test Case '-[HastyHareTests.ExchangeTests test_Arguments]' started.
+Test Case '-[HastyHareTests.ExchangeTests test_Arguments]' passed (0.013 seconds).
+Test Case '-[HastyHareTests.ExchangeTests test_bindToExchange]' started.
+Test Case '-[HastyHareTests.ExchangeTests test_bindToExchange]' passed (0.016 seconds).
+Test Case '-[HastyHareTests.ExchangeTests test_fanoutExchange]' started.
+Test Case '-[HastyHareTests.ExchangeTests test_fanoutExchange]' passed (0.041 seconds).
+Test Case '-[HastyHareTests.ExchangeTests test_headersExchange_single]' started.
+Test Case '-[HastyHareTests.ExchangeTests test_headersExchange_single]' passed (0.027 seconds).
+Test Case '-[HastyHareTests.ExchangeTests test_headersExchange_two_queues]' started.
+Test Case '-[HastyHareTests.ExchangeTests test_headersExchange_two_queues]' passed (0.035 seconds).
+Test Case '-[HastyHareTests.ExchangeTests test_topicExchange]' started.
+Test Case '-[HastyHareTests.ExchangeTests test_topicExchange]' passed (0.035 seconds).
+Test Suite 'ExchangeTests' passed at 2016-06-10 16:48:54.369.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.167 (0.189) seconds
+Test Suite 'LowLevelTests' started at 2016-06-10 16:48:54.372
+Test Case '-[HastyHareTests.LowLevelTests test_lowlevel]' started.
+Test Case '-[HastyHareTests.LowLevelTests test_lowlevel]' passed (0.018 seconds).
+Test Suite 'LowLevelTests' passed at 2016-06-10 16:48:54.396.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.018 (0.023) seconds
+Test Suite 'HastyHareTests.xctest' passed at 2016-06-10 16:48:54.399.
+	 Executed 19 tests, with 0 failures (0 unexpected) in 0.395 (0.487) seconds
+Test Suite 'All tests' passed at 2016-06-10 16:48:54.404.
+	 Executed 19 tests, with 0 failures (0 unexpected) in 0.395 (0.496) seconds

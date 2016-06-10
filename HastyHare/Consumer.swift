@@ -28,10 +28,14 @@ public class Consumer {
         let args = amqp_empty_table
         let res = amqp_basic_consume(
             self.channel.connection, self.channel.channel, queue, amqp_empty_bytes, noLocal, noAck, isExclusive, args
-        )
-
-        self.tag = String(amqpBytes: res.memory.consumer_tag)
-        self.started = self.channel.lastResponse.success
+            )
+        if res != nil {
+            self.tag = String(amqpBytes: res.memory.consumer_tag)
+            self.started = self.channel.lastResponse.success
+        } else {
+            self.tag = nil
+            self.started = false
+        }
     }
 
     
