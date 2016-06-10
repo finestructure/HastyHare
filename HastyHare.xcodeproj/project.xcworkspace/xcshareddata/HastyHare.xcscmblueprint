@@ -4,15 +4,17 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "95438028B10BBB846574013D29F154A00556A9D1" : 0,
     "8CCFBC236B2D99F3320873838535AF1EA5422AB1" : 0,
+    "95438028B10BBB846574013D29F154A00556A9D1" : 0,
+    "5DECC3D92606A8E639BB23E9F74A619917E98DD9" : 0,
     "3E59932877E44843692FD50D09E50B8B8E2FFB99" : 0,
     "18EE9E85FF26F128ACA40A2F4C30202E24ACC668" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E6F8862D-58B7-4A75-80C4-1938DF67E263",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "95438028B10BBB846574013D29F154A00556A9D1" : "HastyHare\/External\/Nimble\/",
     "8CCFBC236B2D99F3320873838535AF1EA5422AB1" : "HastyHare\/External\/Async\/",
+    "95438028B10BBB846574013D29F154A00556A9D1" : "HastyHare\/External\/Nimble\/",
+    "5DECC3D92606A8E639BB23E9F74A619917E98DD9" : "..",
     "3E59932877E44843692FD50D09E50B8B8E2FFB99" : "HastyHare\/External\/RabbitMQ\/",
     "18EE9E85FF26F128ACA40A2F4C30202E24ACC668" : "HastyHare\/"
   },
@@ -29,6 +31,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:feinstruktur\/RabbitMQ.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3E59932877E44843692FD50D09E50B8B8E2FFB99"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:feinstruktur\/CoPilot.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5DECC3D92606A8E639BB23E9F74A619917E98DD9"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:duemunk\/Async.git",

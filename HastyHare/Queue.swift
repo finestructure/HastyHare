@@ -24,7 +24,8 @@ public class Arguments {
                 var value = amqp_field_value_t()
                 set_field_value_bytes(&value, val.amqpBytes)
                 let e = amqp_table_entry_t(key: key.amqpBytes, value: value)
-                entries[idx++] = e
+                entries[idx] = e
+                idx += 1
             }
             return entries
         }()

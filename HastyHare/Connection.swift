@@ -67,7 +67,8 @@ public class Connection {
 
 
     public func openChannel() -> Channel {
-        return Channel(connection: self.connection, channel: ++self.channelId)
+        self.channelId += 1
+        return Channel(connection: self.connection, channel: self.channelId)
     }
 
 }
